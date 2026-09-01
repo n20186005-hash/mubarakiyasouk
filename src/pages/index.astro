@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const site = Astro.site?.toString().replace(/\/$/, '');
+const pageUrl = site ? `${site}/` : undefined;
+const entityId = pageUrl ? `${pageUrl}#souq-al-mubarakiya` : '#souq-al-mubarakiya';
+const websiteId = site ? `${site}/#website` : '#website';
+const address = {
+  '@type': 'PostalAddress',
+  streetAddress: 'المباركية، شارع سوق الغربللي',
+  addressLocality: 'مدينة الكويت',
+  addressCountry: 'KW'
+};
+const faq = [
+  ['هل يحتاج سوق المباركية إلى تذكرة دخول؟','الدخول إلى منطقة السوق العامة لا يتطلب تذكرة. المشتريات أو بعض الأنشطة والخدمات المنفصلة لها تكاليفها الخاصة.'],
+  ['ما الوقت الأنسب لزيارة سوق المباركية؟','تكون الأجواء ألطف عادة في الأشهر المعتدلة، كما أن فترة ما بعد العصر والمساء مناسبة لمن يريد أجواء السوق النشطة. الزيارة الصباحية أنسب غالبًا لمن يفضّل هدوءًا نسبيًا.'],
+  ['كم تستغرق الزيارة؟','يمكن تخصيص نحو ساعة ونصف إلى ثلاث ساعات لاستكشاف الممرات والأسواق المتخصصة وتناول وجبة أو مشروب. المدة تقديرية وتختلف حسب الاهتمامات.'],
+  ['كيف أصل من مطار الكويت الدولي؟','يمكن استخدام سيارة أجرة مرخصة من المطار، أو خطوط النقل العام المتجهة نحو مركز المدينة ثم متابعة الطريق سيرًا أو بسيارة أجرة قصيرة. راجع الجداول الرسمية قبل الانطلاق لأنها قابلة للتغيير.'],
+  ['هل توجد مواقف سيارات؟','توجد مرافق مواقف عامة ومتعددة الطوابق في نطاق وسط مدينة الكويت حول منطقة الأسواق. يزداد الضغط في المساء والعطلات، لذلك يُفضّل تخصيص وقت إضافي للعثور على موقف.'],
+  ['هل توجد دورات مياه وخدمات للزوار؟','توجد خدمات عامة ضمن نطاق السوق والمرافق المحيطة، لكن ساعات التشغيل وسهولة الوصول قد تختلف. يُستحسن الاستفسار ميدانيًا عند الوصول.'],
+  ['هل السوق مناسب لمستخدمي الكراسي المتحركة؟','بعض الممرات واسعة وممهدة، بينما قد تكون أجزاء السوق التاريخية مزدحمة أو ذات انتقالات غير متساوية. من الأفضل اختيار المداخل الأوسع وتجنب ساعات الذروة عند الحاجة إلى حركة أسهل.'],
+  ['ما الذي يميز سوق المباركية تاريخيًا؟','المنطقة جزء من شبكة أسواق قديمة في قلب مدينة الكويت، وارتبطت بتجارة الغذاء والعطور والأقمشة والأسلحة والبشوت وغيرها. يرتبط عام 1897 بكشك الشيخ مبارك، وليس بالضرورة بتاريخ تأسيس كل السوق.']
+];
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['TouristAttraction','LocalBusiness'],
+  '@id': entityId,
+  ...(pageUrl ? { url: pageUrl } : {}),
+  name: 'سوق المباركية',
+  alternateName: ['Souk Al-Mubarakiya','سوق المباركية القديم'],
+  description: 'سوق تراثي في قلب مدينة الكويت، يضم شبكة من الأسواق والممرات التقليدية ويرتبط بتاريخ التجارة والحياة اليومية في الكويت القديمة.',
+  address,
+  geo: { '@type':'GeoCoordinates', latitude: 29.374588243816994, longitude: 47.973118089148905 },
+  containedInPlace: { '@type':'City', name:'مدينة الكويت', containedInPlace:{ '@type':'Country', name:'دولة الكويت' } },
+  hasMap: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
+  openingHours: '08:00-22:00',
+  aggregateRating: { '@type':'AggregateRating', ratingValue:'4.4', ratingCount:'26505', bestRating:'5' },
+  isAccessibleForFree: true,
+  sameAs: [
+    'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
+    'https://www.wikidata.org/wiki/Q7565064'
+  ]
+};
+const webPageSchema = {
+  '@context':'https://schema.org',
+  '@type':'WebPage',
+  ...(pageUrl ? { url: pageUrl } : {}),
+  name:'دليل سوق المباركية في مدينة الكويت',
+  inLanguage:'ar-KW',
+  about:{ '@id': entityId },
+  mainEntity:{ '@id': entityId },
+  isPartOf:{ '@type':'WebSite', '@id':websiteId, ...(pageUrl ? { url:pageUrl } : {}), name:'دليل سوق المباركية' }
+};
+const faqSchema = {
+  '@context':'https://schema.org', '@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{'@type':'Answer',text:a} }))
+};
+
+const photos = [
+  {
+    src:'/images/souk-al-mubarakiya-night.jpg',
+    alt:'ممر رئيسي في سوق المباركية ليلًا',
+    credit:'تصوير: زيرون — ترخيص المشاع الإبداعي نَسب المصنف 4.0'
+  },
+  {
+    src:'/images/souk-al-mubarakiya-day.jpg',
+    alt:'مشهد نهاري من سوق المباركية في مدينة الكويت',
+    credit:'تصوير: عزيز1005 — ملكية عامة'
+  }
+];
+---
+<BaseLayout
+  title="سوق المباركية في مدينة الكويت | التاريخ والزيارة والمواصلات"
+  description="دليل غير ربحي وموسّع لسوق المباركية في مدينة الكويت: التاريخ، أوقات الزيارة، الوصول من المطار، المواصلات، المواقف، المرافق، الطعام، المعالم القريبة والأسئلة الشائعة."
+  path="/"
+  jsonLd={[attractionSchema, webPageSchema, faqSchema]}
+>
+  <section class="hero geometric">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">مدينة الكويت · القبلة · قلب الأسواق التاريخية</p>
+        <h1>سوق المباركية</h1>
+        <p class="hero-lead">ممرات مظللة، رائحة البهارات والقهوة، واجهات خشبية، وأسواق متخصصة تحفظ صورة من الحياة التجارية القديمة في الكويت.</p>
+        <div class="facts" aria-label="معلومات سريعة">
+          <span><b>08:00–22:00</b><small>الساعات الواردة في بيانات الموقع المزوّدة</small></span>
+          <span><b>4.4 / 5</b><small>تقييم خرائط متغير بمرور الوقت</small></span>
+          <span><b>9XFF+G5</b><small>رمز الموقع في مدينة الكويت</small></span>
+        </div>
+        <div class="actions"><a class="primary" href="#visit">خطط زيارتك</a><a class="secondary" href="https://maps.app.goo.gl/Unad47yFEGSrn79r6" rel="noopener noreferrer">الاتجاهات على الخريطة</a></div>
+      </div>
+      <figure class="arch hero-photo">
+        <img src={photos[0].src} alt={photos[0].alt} width="960" height="656" loading="eager" fetchpriority="high" />
+        <figcaption>{photos[0].credit}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="identity-strip">
+    <div class="wrap identity-grid">
+      <div><small>الاسم</small><strong>سوق المباركية</strong></div>
+      <div><small>الموقع</small><strong>المباركية، شارع سوق الغربللي، مدينة الكويت</strong></div>
+      <div><small>الإحداثيات</small><strong dir="ltr">29.374588, 47.973118</strong></div>
+      <div><small>الطبيعة</small><strong>سوق تراثي ومقصد للزوار</strong></div>
+    </div>
+  </section>
+
+  <section id="history" class="section">
+    <div class="wrap history-grid">
+      <div>
+        <p class="eyebrow">هوية المكان</p>
+        <h2 class="section-title">سوق ليس مبنى واحدًا، بل ذاكرة تجارية متشابكة</h2>
+        <p class="lead">تصف المصادر الأكاديمية والرسمية المباركية بوصفها جزءًا من قلب الكويت القديم وشبكة من الأسواق المتخصصة. وتفيد جامعة الكويت بأن أسواق المنطقة تمتد جذورها إلى أكثر من 180 عامًا، مع أكثر من عشرين سوقًا تخصصيًا عُرفت بمهن وسلع مختلفة.</p>
+        <div class="timeline">
+          <article><b>قبل العصر النفطي</b><p>تشكّلت في المنطقة أسواق للحوم والخضار والحلوى والبشوت والسلاح والمناخ وغيرها، وكانت نقطة تبادل يومية بين أهل المدينة والتجار.</p></article>
+          <article><b>1897</b><p>يرتبط هذا العام بكشك الشيخ مبارك الصباح، وهو معلم تاريخي داخل نطاق المباركية. لذلك لا ينبغي استخدام 1897 كتاريخ مبسط لتأسيس السوق كله.</p></article>
+          <article><b>1911</b><p>افتُتحت المدرسة المباركية في المنطقة، في دلالة على انتقال قلب المدينة من التجارة وحدها إلى التعليم والحياة العامة المنظمة.</p></article>
+          <article><b>نحو 1969–1970</b><p>شهدت المنطقة أعمال تنظيم وتطوير حافظت على طابع الأسواق وممراتها التراثية بدل تحويلها إلى مركز تجاري حديث مغلق.</p></article>
+          <article><b>2022 وما بعده</b><p>أصاب حريق جزءًا من أقدم النطاقات التاريخية، ثم أعاد النقاش حول الحماية والترميم أهمية توثيق المباني والهوية العمرانية.</p></article>
+        </div>
+      </div>
+      <div>
+        <figure class="arch side-photo"><img src={photos[1].src} alt={photos[1].alt} loading="lazy" width="960" height="720" /><figcaption>{photos[1].credit}</figcaption></figure>
+        <aside class="source-note card"><strong>كيف نتحقق من الرواية؟</strong><p>نفرّق بين تاريخ المعالم الفردية وتاريخ شبكة الأسواق، ونقارن بين مصادر حكومية وأكاديمية بدل تكرار تواريخ شائعة بلا سياق.</p></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <p class="eyebrow">قراءة السوق</p><h2 class="section-title">ما الذي ستراه في الممرات؟</h2>
+      <div class="market-grid">
+        <article><span>01</span><h3>الأسواق المتخصصة</h3><p>تاريخيًا عُرفت أجزاء من المباركية بأسماء مرتبطة بالسلع والحرف، مثل أسواق البشوت والحلوى واللحم والخضار والسلاح والمناخ.</p></article>
+        <article><span>02</span><h3>الظل والخشب</h3><p>الممرات المسقوفة والعناصر الخشبية ليست مجرد ديكور؛ إنها استجابة محلية للشمس والحرارة وتمنح السوق هويته العمرانية.</p></article>
+        <article><span>03</span><h3>الغذاء والعطر</h3><p>البهارات والتمور والقهوة والعطور والأطعمة المحلية جزء أساسي من التجربة الحسية للمكان، من دون حاجة إلى حصر الزيارة في متجر بعينه.</p></article>
+        <article><span>04</span><h3>المعالم المدنية</h3><p>قرب الأسواق توجد شواهد على تاريخ الإدارة والتعليم والحياة العامة، وفي مقدمتها كشك الشيخ مبارك وما تبقى من ذاكرة المدينة القديمة.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="section">
+    <div class="wrap">
+      <p class="eyebrow">خطة عملية</p><h2 class="section-title">قبل أن تذهب</h2>
+      <div class="planning-grid">
+        <article class="card"><h3>الدخول والتكاليف</h3><p>الدخول إلى منطقة السوق العامة مجاني ولا يتطلب تذكرة. ادفع فقط مقابل المشتريات أو الطعام أو الخدمات التي تختارها. قد تكون بعض المعالم أو الفعاليات منفصلة في قواعدها.</p></article>
+        <article class="card"><h3>أفضل وقت</h3><p>تكون الأشهر المعتدلة أكثر راحة للمشي. المساء يمنح أجواء أكثر حيوية وإضاءة، بينما تسمح الزيارة الصباحية عادة باستكشاف أهدأ نسبيًا.</p></article>
+        <article class="card"><h3>مدة مقترحة</h3><p>خطط لنحو ساعة ونصف إلى ثلاث ساعات. أضف وقتًا إذا كنت مهتمًا بالتاريخ أو الطعام أو المشي إلى المعالم العامة القريبة.</p></article>
+        <article class="card"><h3>الملابس والسلوك</h3><p>اختر ملابس مريحة ومحتشمة وحذاء مناسبًا للمشي. احترم خصوصية الباعة والزوار عند التصوير، واطلب الإذن عند تصوير أشخاص عن قرب.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="transport" class="section sand">
+    <div class="wrap">
+      <p class="eyebrow">تفاصيل الوصول</p><h2 class="section-title">من المطار، بالحافلة، بسيارة الأجرة أو بالسيارة</h2>
+      <div class="transport-grid">
+        <article><b>01</b><div><h3>من مطار الكويت الدولي</h3><p>الخيار المباشر هو سيارة أجرة مرخصة من منطقة الوصول إلى وسط مدينة الكويت. تنشر إدارة المطار تعرفة إرشادية للرحلة إلى مدينة الكويت؛ تحقق من السعر المعلن في المطار قبل الركوب لأن التعرفات قد تتغير.</p></div></article>
+        <article><b>02</b><div><h3>الحافلات العامة</h3><p>تعرض صفحة النقل الرسمية في المطار خطوطًا عامة من بينها 13 و99 و501. يمر الخط 13 باتجاه مناطق وسطية تشمل المرقاب، ومن هناك يمكن متابعة الطريق سيرًا أو بسيارة أجرة قصيرة. راجع الجدول والمسار في يوم الزيارة.</p></div></article>
+        <article><b>03</b><div><h3>سيارات الأجرة</h3><p>استخدم سيارات الأجرة المرخصة أو نقاط الركوب المعروفة، واطلب تطبيق العداد أو السعر النظامي المعمول به. الوصول إلى حافة منطقة السوق غالبًا أسهل من محاولة الدخول إلى الممرات الداخلية.</p></div></article>
+        <article><b>04</b><div><h3>بالسيارة الخاصة</h3><p>استهدف مرافق المواقف العامة في نطاق وسط المدينة، ثم أكمل المسافة القصيرة سيرًا. في ساعات المساء والعطلات، اترك هامشًا زمنيًا للبحث عن موقف والخروج من المنطقة.</p></div></article>
+      </div>
+      <div class="map-frame card"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092.0451984373562!2d47.973118089148905!3d29.374588243816994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf84e895d75539%3A0xe2081f7936a852b0!2sSouk%20Al-Mubarakiya!5e1!3m2!1szh-CN!2s!4v1788189123289!5m2!1szh-CN!2s" width="600" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="خريطة موقع سوق المباركية"></iframe></div>
+    </div>
+  </section>
+
+  <section id="facilities" class="section">
+    <div class="wrap">
+      <p class="eyebrow">احتياجات الزائر</p><h2 class="section-title">الخدمات والمرافق حول السوق</h2>
+      <p class="lead">نذكر أنواع الخدمات فقط للحفاظ على حياد الدليل وعدم تحويله إلى صفحة إعلانية. توفر الخدمة وساعاتها قد تتغير، لذلك راجع اللافتات المحلية عند الوصول.</p>
+      <div class="facility-grid">
+        <article><i>🚻</i><h3>دورات المياه</h3><p>خدمات عامة موجودة في نطاق السوق والمرافق المحيطة؛ قد تختلف ساعات الفتح وإمكانية الوصول.</p></article>
+        <article><i>🅿️</i><h3>مواقف السيارات</h3><p>مواقف عامة ومتعددة الطوابق في محيط وسط المدينة. الضغط أعلى مساءً وفي العطلات.</p></article>
+        <article><i>🍽️</i><h3>الطعام</h3><p>مطاعم شعبية، مشويات، أطباق أرز، مأكولات بحرية، خبز، حلويات وتمور ومقاهي وشاي.</p></article>
+        <article><i>🛏️</i><h3>الإقامة</h3><p>فنادق وشقق فندقية بدرجات مختلفة في مركز مدينة الكويت؛ اختر حسب الميزانية وقربك من مسارات النقل.</p></article>
+        <article><i>🛒</i><h3>المواد اليومية</h3><p>بقالات وأسواق مواد غذائية وصيدليات وخدمات يومية في النطاق الحضري القريب.</p></article>
+        <article><i>⛽</i><h3>الوقود والشحن</h3><p>محطات وقود ونقاط شحن كهربائي موزعة في المدينة؛ تحقق من الخريطة الحية والتوافق قبل الاعتماد على نقطة محددة.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark food">
+    <div class="wrap split">
+      <div><p class="eyebrow">حول المائدة</p><h2 class="section-title">ماذا تأكل من دون قوائم تجارية؟</h2><p class="lead">تعامل مع المباركية كمنطقة نكهات لا كقائمة مطاعم. ابحث عن الأنواع التي تعبّر عن المطبخ المحلي وتناسب ميزانيتك واحتياجاتك الغذائية.</p></div>
+      <div class="chips"><span>أرز ولحوم على الطريقة الكويتية</span><span>مشويات</span><span>مأكولات بحرية</span><span>خبز محلي</span><span>حلويات وتمور</span><span>قهوة وشاي</span><span>بهارات وأعشاب</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">في المحيط القريب</p><h2 class="section-title">معالم عامة تكمل قراءة وسط مدينة الكويت</h2>
+      <div class="nearby-grid">
+        <article class="card"><h3>كشك الشيخ مبارك</h3><p>معلم تاريخي داخل نطاق المباركية يرتبط بالإدارة والحياة العامة في عهد الشيخ مبارك الصباح، وهو أفضل نقطة لفهم سبب ارتباط اسم السوق به.</p></article>
+        <article class="card"><h3>المسجد الكبير</h3><p>معلم ديني ومعماري بارز في مركز مدينة الكويت. راعِ أوقات الصلاة ومتطلبات الدخول والملابس عند الزيارة.</p></article>
+        <article class="card"><h3>قصر السيف ومحيطه</h3><p>منطقة ذات أهمية سياسية وعمرانية على الواجهة الحضرية القديمة. بعض الأجزاء ليست مرفقًا سياحيًا مفتوحًا، لذلك تُشاهد من الأماكن العامة المسموح بها.</p></article>
+        <article class="card"><h3>متحف الكويت الوطني وبيت السدو</h3><p>مؤسسات ثقافية تساعد على وضع السوق ضمن سياق أوسع للحياة البحرية والبدوية والحرفية في الكويت. تحقق من ساعات الزيارة الرسمية مسبقًا.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section sand">
+    <div class="wrap faq-wrap">
+      <div><p class="eyebrow">إجابات سريعة</p><h2 class="section-title">أسئلة شائعة عن سوق المباركية</h2><p class="lead">المعلومات التشغيلية تتغير. عند تعارض هذه الصفحة مع إعلان رسمي حديث، اتبع الإعلان الرسمي.</p></div>
+      <div class="faq-list">{faq.map(([q,a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+    </div>
+  </section>
+
+  <section class="section sources">
+    <div class="wrap source-grid">
+      <div><p class="eyebrow">منهج التوثيق</p><h2 class="section-title">مصادر عامة وأكاديمية، لا محتوى دعائي</h2><p class="lead">لربط الصفحة بالمكان الحقيقي، تُراجع التسمية والإحداثيات والخريطة مع بيانات الموقع، وتُقارن الرواية التاريخية بمصادر كويتية رسمية وأكاديمية.</p></div>
+      <div class="source-links">
+        <a href="https://e.gov.kw/sites/kgoArabic/Pages/Visitors/TourismInKuwait/ActivitiesInKuwaitShopping.aspx" rel="noopener noreferrer">البوابة الرسمية: التسوق في الكويت وذكر سوق المباركية <span>↗</span></a>
+        <a href="https://news.gov.kw/News/MilafaatKhasa/Details/141446" rel="noopener noreferrer">وزارة الإعلام: ملف عن سوق المباركية وأسواقه التاريخية <span>↗</span></a>
+        <a href="https://www.ku.edu.kw/ar/media-center/news/kuw246554" rel="noopener noreferrer">جامعة الكويت: توثيق تاريخ المباركية وتطورها العمراني <span>↗</span></a>
+        <a href="https://www.baladia.gov.kw/" rel="noopener noreferrer">بلدية الكويت: المرجع البلدي العام للخدمات والتنظيم الحضري <span>↗</span></a>
+        <a href="https://www.kuwaitairport.gov.kw/ar/from-and-to-the-airport/transport/airport-taxies-and-buses/" rel="noopener noreferrer">مطار الكويت الدولي: سيارات الأجرة والحافلات <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.hero{padding:70px 0 82px;border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:58px}.hero h1{font-size:clamp(4rem,9vw,8.5rem);line-height:.9;margin:.4rem 0 1.4rem;letter-spacing:-.055em;color:#3a2418}.hero-lead{font-size:1.22rem;max-width:670px;color:#5a493c}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}.facts span{border-top:1px solid var(--line);padding-top:13px;display:grid;gap:2px}.facts b{font-size:1rem}.facts small{font-size:.72rem;color:#796655}.actions{display:flex;gap:10px;flex-wrap:wrap}.actions a{padding:.86rem 1.25rem;border-radius:999px;text-decoration:none;font-weight:800}.primary{background:#3a2418;color:#fff}.secondary{border:1px solid rgba(58,36,24,.25)}.hero-photo{height:650px;background:#c9b28e}.hero-photo img,.side-photo img{width:100%;height:100%;object-fit:cover}.hero-photo figcaption,.side-photo figcaption{position:absolute;bottom:0;right:0;left:0;padding:22px 18px 12px;background:linear-gradient(transparent,rgba(0,0,0,.66));color:#fff;font-size:.72rem}.identity-strip{background:#fff7e9;border-bottom:1px solid var(--line)}.identity-grid{display:grid;grid-template-columns:1fr 2fr 1.3fr 1fr}.identity-grid>div{padding:24px 18px;border-left:1px solid var(--line);display:grid;gap:2px}.identity-grid>div:first-child{border-right:1px solid var(--line)}.identity-grid small{color:#806d5c;font-size:.74rem}.identity-grid strong{font-size:.9rem}.history-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:70px}.timeline{margin-top:36px;border-right:1px solid rgba(113,68,38,.25);padding-right:28px}.timeline article{position:relative;margin-bottom:28px}.timeline article::before{content:"";position:absolute;right:-34px;top:.6rem;width:11px;height:11px;border-radius:50%;background:#c79b55;box-shadow:0 0 0 6px #f7eedf}.timeline b{color:#714426}.timeline p{margin:.3rem 0;color:#5d4b3d}.side-photo{height:520px;position:sticky;top:110px}.source-note{padding:20px;margin-top:18px}.source-note p{font-size:.9rem;color:#685647;margin:.35rem 0}.dark{background:#251913;color:#f4e8d6}.dark .eyebrow{color:#d5b276}.dark .section-title{color:#fff}.dark .lead{color:#c9b8a5}.market-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.12);border-radius:28px;overflow:hidden;margin-top:34px}.market-grid article{padding:28px;border-left:1px solid rgba(255,255,255,.12)}.market-grid article:last-child{border-left:0}.market-grid span{color:#c79b55;font-size:.75rem}.market-grid h3{font-size:1.2rem}.market-grid p{color:#bca995;font-size:.9rem}.planning-grid,.nearby-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}.planning-grid article,.nearby-grid article{padding:28px}.planning-grid h3,.nearby-grid h3{margin-top:0}.planning-grid p,.nearby-grid p{color:#685647;margin-bottom:0}.sand{background:#efe1ca}.transport-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:30px 0}.transport-grid article{display:flex;gap:18px;padding:24px;border-top:1px solid rgba(113,68,38,.25)}.transport-grid b{font-size:.75rem;color:#855531}.transport-grid h3{margin:0 0 .35rem}.transport-grid p{margin:0;color:#685647}.map-frame{overflow:hidden;padding:8px;background:#fff}.map-frame iframe{width:100%;height:460px;border-radius:20px}.facility-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.facility-grid article{padding:24px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.65)}.facility-grid i{font-style:normal;font-size:1.35rem}.facility-grid h3{margin:.6rem 0 .2rem}.facility-grid p{margin:0;color:#6c594a;font-size:.9rem}.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}.chips{display:flex;gap:10px;flex-wrap:wrap}.chips span{border:1px solid rgba(255,255,255,.2);padding:.72rem 1rem;border-radius:999px;color:#eadbc7}.faq-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:65px}.faq-list{display:grid;gap:10px}.faq-list details{background:rgba(255,255,255,.62);border:1px solid rgba(113,68,38,.16);border-radius:18px;padding:0 20px}.faq-list summary{cursor:pointer;font-weight:800;padding:18px 0}.faq-list p{color:#685647;margin:0 0 18px}.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}.source-links{display:grid}.source-links a{text-decoration:none;padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-weight:700}.source-links a:hover{color:#714426}@media(max-width:900px){.hero-grid,.history-grid,.split,.faq-wrap,.source-grid{grid-template-columns:1fr}.hero-photo{height:520px}.identity-grid{grid-template-columns:repeat(2,1fr)}.market-grid{grid-template-columns:repeat(2,1fr)}.market-grid article:nth-child(2){border-left:0}.market-grid article:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.12)}.side-photo{position:relative;top:auto}.facility-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.hero{padding-top:45px}.hero h1{font-size:4.4rem}.hero-photo{height:440px}.facts{grid-template-columns:1fr}.identity-grid,.planning-grid,.nearby-grid,.transport-grid,.facility-grid,.market-grid{grid-template-columns:1fr}.identity-grid>div{border-left:1px solid var(--line);border-right:1px solid var(--line)}.market-grid article{border-left:0;border-bottom:1px solid rgba(255,255,255,.12)}.market-grid article:last-child{border-bottom:0}.map-frame iframe{height:390px}}
+</style>

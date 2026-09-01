@@ -1,0 +1,21 @@
+---
+import Logo from './Logo.astro';
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="top">
+      <Logo />
+      <div class="links"><a href="/privacy/">سياسة الخصوصية</a><a href="/terms/">شروط الاستخدام</a><a href="/cookies/">إعدادات ملفات تعريف الارتباط</a></div>
+    </div>
+    <div class="rule"></div>
+    <div class="notes">
+      <p>هذا الموقع مشروع مستقل غير ربحي لدليل معلومات الزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية.</p>
+      <p>تُراجع معلومات سوق المباركية بالرجوع إلى المواد العامة الصادرة عن بلدية الكويت، ووزارة الإعلام، والبوابة الإلكترونية الرسمية لدولة الكويت، ومطار الكويت الدولي، ومصادر أكاديمية من جامعة الكويت. لا يتضمن الموقع توصيات تجارية مدفوعة.</p>
+      <p>حقوق الصور: جميع الصور المعروضة تبقى حقوقها وحقوق نشرها للمصورين أو أصحاب التراخيص المبينة في سجل الصور داخل المشروع.</p>
+      <p>© 2026 دليل سوق المباركية في مدينة الكويت. جميع الحقوق محفوظة للمحتوى الأصلي للمشروع.</p>
+    </div>
+  </div>
+</footer>
+<style>
+  .footer{padding:50px 0 34px;background:#21160f;color:#eadcc7}.top{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding-bottom:26px}.top :global(.logo){color:#eadcc7!important}.top :global(.mark){color:#c79b55!important}.top :global(.logo small){color:#bca78d!important}.links{display:flex;flex-wrap:wrap;gap:1.2rem}.links a{font-size:.88rem;text-decoration:none}.notes{padding-top:24px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px 34px}.notes p{font-size:.8rem;color:#bda990;margin:.15rem 0}@media(max-width:760px){.top{align-items:flex-start;flex-direction:column}.notes{grid-template-columns:1fr}}
+</style>

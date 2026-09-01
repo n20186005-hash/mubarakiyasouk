@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string; description: string; path?: string; image?: string; noindex?: boolean; jsonLd?: unknown[]; }
+const { title, description, path='/', image, noindex=false, jsonLd=[] } = Astro.props;
+const site = Astro.site?.toString().replace(/\/$/, '');
+const absolute = (p: string) => site ? new URL(p, `${site}/`).toString() : undefined;
+const canonical = absolute(path);
+const ogImage = image ? absolute(image) : undefined;
+---
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#3a2418" />
+  {canonical && <link rel="canonical" href={canonical} />}
+  {noindex && <meta name="robots" content="noindex,follow" />}
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_KW" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  {canonical && <meta property="og:url" content={canonical} />}
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/icons/favicon-16.png" sizes="16x16" type="image/png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" sizes="180x180" />
+  {jsonLd.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  <script is:inline>
+    (() => {
+      const GA_ID = 'G-HXM22WWPKP';
+      try {
+        const saved = JSON.parse(localStorage.getItem('mubarakiya-cookie-preferences') || '{}');
+        if (saved.analytics !== true) return;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){ window.dataLayer.push(arguments); };
+        window.gtag('js', new Date());
+        window.gtag('config', GA_ID, { anonymize_ip: true });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+        document.head.appendChild(script);
+      } catch (_) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#content">انتقل إلى المحتوى</a>
+  <Header />
+  <main id="content"><slot /></main>
+  <Footer />
+</body>
+</html>

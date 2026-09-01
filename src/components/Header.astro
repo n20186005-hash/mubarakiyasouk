@@ -1,0 +1,15 @@
+---
+import Logo from './Logo.astro';
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <Logo />
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/#history">التاريخ</a><a href="/#visit">خطط الزيارة</a><a href="/#transport">الوصول</a><a href="/#facilities">الخدمات</a><a href="/#faq">الأسئلة</a>
+    </nav>
+    <a class="map" href="https://maps.app.goo.gl/Unad47yFEGSrn79r6" rel="noopener noreferrer">افتح الخريطة</a>
+  </div>
+</header>
+<style>
+  .site-header{position:sticky;top:0;z-index:40;background:rgba(251,246,236,.91);backdrop-filter:blur(18px);border-bottom:1px solid rgba(74,45,27,.12)}.bar{height:78px;display:flex;align-items:center;gap:1.5rem}.bar nav{display:flex;gap:1.2rem;margin-inline:auto}.bar nav a{text-decoration:none;font-size:.9rem;color:#5b493b}.bar nav a:hover{color:#714426}.map{text-decoration:none;background:#3a2418;color:#fff;padding:.65rem 1rem;border-radius:999px;font-size:.86rem;font-weight:700}@media(max-width:900px){.bar nav{display:none}}@media(max-width:480px){.map{display:none}}
+</style>

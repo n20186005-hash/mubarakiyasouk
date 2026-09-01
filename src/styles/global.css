@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #21160f;
+  --coffee: #3a2418;
+  --wood: #714426;
+  --brass: #c79b55;
+  --sand: #f2e6d0;
+  --plaster: #fbf6ec;
+  --palm: #3f5f50;
+  --line: rgba(74, 45, 27, .16);
+  --shadow: 0 24px 70px rgba(56, 32, 17, .12);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--plaster); }
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(199,155,85,.12), transparent 28rem),
+    linear-gradient(180deg, #fdf9f1 0%, #f6ead7 100%);
+  font-family: Tahoma, Arial, "Noto Sans Arabic", sans-serif;
+  line-height: 1.8;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+::selection { background: #c79b55; color: #21160f; }
+
+.wrap { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
+.eyebrow { color: var(--wood); font-weight: 800; letter-spacing: .04em; font-size: .82rem; }
+.section { padding: 82px 0; }
+.section-title { font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.15; margin: .25rem 0 1rem; font-weight: 900; }
+.lead { font-size: 1.13rem; color: #5d4b3d; max-width: 760px; }
+.card { background: rgba(255,255,255,.68); border: 1px solid var(--line); border-radius: 26px; box-shadow: 0 12px 40px rgba(63,40,24,.06); }
+.rule { height: 1px; background: linear-gradient(90deg, transparent, rgba(113,68,38,.32), transparent); }
+
+.arch { position: relative; overflow: hidden; border-radius: 140px 140px 24px 24px; }
+.arch::after { content:""; position:absolute; inset:0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.26); pointer-events:none; }
+.photo { width:100%; height:100%; object-fit:cover; }
+.photo-source { font-size:.76rem; color:#6d5c4e; margin-top:.55rem; }
+
+.geometric {
+  background-image:
+    linear-gradient(45deg, rgba(199,155,85,.10) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(199,155,85,.10) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(199,155,85,.10) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(199,155,85,.10) 75%);
+  background-size: 26px 26px;
+  background-position: 0 0, 0 13px, 13px -13px, -13px 0;
+}
+
+.skip { position: fixed; z-index: 100; top: 8px; right: 8px; transform: translateY(-180%); background:#fff; padding:.7rem 1rem; border-radius:12px; }
+.skip:focus { transform:none; }
+
+@media (max-width: 720px) {
+  .section { padding: 62px 0; }
+  .wrap { width: min(100% - 22px, 1180px); }
+}

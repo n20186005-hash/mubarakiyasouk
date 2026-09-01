@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="إعدادات ملفات تعريف الارتباط | دليل سوق المباركية" description="إدارة تفضيلات ملفات تعريف الارتباط والقياس الإحصائي في دليل سوق المباركية." path="/cookies/">
+<section class="section"><div class="wrap cookie-wrap">
+  <p class="eyebrow">تحكم واضح</p><h1>إعدادات ملفات تعريف الارتباط</h1><p class="updated">آخر تحديث: أغسطس 2026</p>
+  <p class="lead">نستخدم الحد الأدنى من التخزين اللازم. يمكنك اختيار القياس الإحصائي والتفضيلات، ولا نستخدم حاليًا ملفات إعلانات مخصصة.</p>
+  <form id="cookie-form" class="settings" aria-describedby="save-status">
+    <article class="card"><div><h2>ملفات ضرورية</h2><p>ضرورية لحفظ اختيار الخصوصية وتشغيل الوظائف الأساسية. لا يمكن تعطيلها من هذه الصفحة.</p></div><label><input type="checkbox" checked disabled /> <span>نشطة دائمًا</span></label></article>
+    <article class="card"><div><h2>ملفات القياس</h2><p>تسمح بتفعيل إحصاءات غوغل لجمع معلومات استخدام مجمّعة تساعدنا على فهم الصفحات الأكثر فائدة. لا يُحمّل القياس قبل الموافقة.</p></div><label><input id="analytics" type="checkbox" /> <span>السماح بالقياس</span></label></article>
+    <article class="card"><div><h2>ملفات التفضيلات</h2><p>تسمح بحفظ إعدادات واجهة المستخدم التي قد نضيفها مستقبلًا، من دون إنشاء ملف تعريف إعلاني.</p></div><label><input id="preferences" type="checkbox" /> <span>حفظ التفضيلات</span></label></article>
+    <article class="card muted"><div><h2>ملفات التسويق</h2><p>لا يشغّل هذا المشروع غير الربحي حاليًا إعلانات مخصصة أو أدوات تسويق تتبع سلوك الزائر.</p></div><label><input type="checkbox" disabled /> <span>متوقفة</span></label></article>
+    <div class="buttons"><button type="submit">حفظ التفضيلات</button><button id="reject" type="button" class="outline">رفض غير الضروري</button></div>
+    <p id="save-status" class="status" role="status" aria-live="polite"></p>
+  </form>
+  <h2 class="consent">إدارة الموافقة</h2><p>يمكنك العودة إلى هذه الصفحة في أي وقت لتغيير اختياراتك. قد يؤدي تعطيل بعض الخيارات المستقبلية إلى عدم حفظ تفضيلات الواجهة، لكنه لا يمنع الوصول إلى المحتوى الأساسي.</p>
+</div></section>
+<script is:inline>
+(() => {
+  const key = 'mubarakiya-cookie-preferences';
+  const form = document.getElementById('cookie-form');
+  const analytics = document.getElementById('analytics');
+  const preferences = document.getElementById('preferences');
+  const reject = document.getElementById('reject');
+  const status = document.getElementById('save-status');
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) || '{}');
+    analytics.checked = saved.analytics === true;
+    preferences.checked = saved.preferences === true;
+  } catch (_) {}
+  const save = (a, p) => {
+    localStorage.setItem(key, JSON.stringify({ necessary:true, analytics:a, preferences:p, marketing:false }));
+    status.textContent = 'تم حفظ اختياراتك. سيُطبّق تغيير القياس بالكامل عند فتح صفحة جديدة أو إعادة تحميل الصفحة.';
+  };
+  form.addEventListener('submit', (event) => { event.preventDefault(); save(analytics.checked, preferences.checked); });
+  reject.addEventListener('click', () => { analytics.checked=false; preferences.checked=false; save(false,false); });
+})();
+</script>
+<style>.cookie-wrap{max-width:920px}.cookie-wrap h1{font-size:clamp(3rem,7vw,5.8rem);line-height:1;margin:.5rem 0}.updated{color:#7b6757}.settings{display:grid;gap:14px;margin-top:34px}.settings article{padding:24px;display:flex;justify-content:space-between;gap:25px;align-items:center}.settings article h2{font-size:1.2rem;margin:0}.settings article p{margin:.35rem 0 0;color:#675548}.settings label{min-width:150px;display:flex;gap:8px;align-items:center;font-weight:800}.settings input{width:20px;height:20px;accent-color:#714426}.muted{opacity:.72}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.buttons button{border:0;border-radius:999px;padding:.9rem 1.3rem;background:#3a2418;color:#fff;font:inherit;font-weight:800;cursor:pointer}.buttons .outline{background:transparent;color:#3a2418;border:1px solid rgba(58,36,24,.28)}.status{min-height:1.6em;color:#3f5f50;font-weight:700}.consent{margin-top:42px}@media(max-width:650px){.settings article{align-items:flex-start;flex-direction:column}.settings label{min-width:auto}}</style>
