@@ -1,15 +1,35 @@
 ---
 import Logo from './Logo.astro';
+import { defaultLang, t } from '../i18n/ui';
+import type { Lang } from '../i18n/ui';
+const { lang = defaultLang } = Astro.props;
+const path = Astro.url.pathname;
+const isEn = path.startsWith('/en');
+const arPath = isEn ? (path.slice(3) || '/') : path;
+const enPath = isEn ? path : (path === '/' ? '/en/' : '/en' + path);
+const prefix = lang === 'en' ? '/en' : '';
+const nav = [
+  { key: 'nav.history', href: '#history' },
+  { key: 'nav.visit', href: '#visit' },
+  { key: 'nav.transport', href: '#transport' },
+  { key: 'nav.facilities', href: '#facilities' },
+  { key: 'nav.faq', href: '#faq' }
+];
 ---
 <header class="site-header">
   <div class="wrap bar">
-    <Logo />
-    <nav aria-label="التنقل الرئيسي">
-      <a href="/#history">التاريخ</a><a href="/#visit">خطط الزيارة</a><a href="/#transport">الوصول</a><a href="/#facilities">الخدمات</a><a href="/#faq">الأسئلة</a>
+    <Logo lang={lang} />
+    <nav aria-label={t(lang, 'nav.label')}>
+      {nav.map((item) => <a href={prefix + '/' + item.href}>{t(lang, item.key)}</a>)}
     </nav>
-    <a class="map" href="https://maps.app.goo.gl/Unad47yFEGSrn79r6" rel="noopener noreferrer">افتح الخريطة</a>
+    <div class="lang" aria-label="Language / اللغة">
+      <a href={arPath} lang="ar" hreflang="ar" class={lang === 'ar' ? 'active' : ''} aria-current={lang === 'ar' ? 'true' : undefined}>العربية</a>
+      <span class="dot" aria-hidden="true"></span>
+      <a href={enPath} lang="en" hreflang="en" class={lang === 'en' ? 'active' : ''} aria-current={lang === 'en' ? 'true' : undefined}>English</a>
+    </div>
+    <a class="map" href="https://maps.app.goo.gl/Unad47yFEGSrn79r6" rel="noopener noreferrer">{t(lang, 'header.map')}</a>
   </div>
 </header>
 <style>
-  .site-header{position:sticky;top:0;z-index:40;background:rgba(251,246,236,.91);backdrop-filter:blur(18px);border-bottom:1px solid rgba(74,45,27,.12)}.bar{height:78px;display:flex;align-items:center;gap:1.5rem}.bar nav{display:flex;gap:1.2rem;margin-inline:auto}.bar nav a{text-decoration:none;font-size:.9rem;color:#5b493b}.bar nav a:hover{color:#714426}.map{text-decoration:none;background:#3a2418;color:#fff;padding:.65rem 1rem;border-radius:999px;font-size:.86rem;font-weight:700}@media(max-width:900px){.bar nav{display:none}}@media(max-width:480px){.map{display:none}}
+  .site-header{position:sticky;top:0;z-index:40;background:rgba(251,246,236,.91);backdrop-filter:blur(18px);border-bottom:1px solid rgba(74,45,27,.12)}.bar{height:78px;display:flex;align-items:center;gap:1.5rem}.bar nav{display:flex;gap:1.2rem;margin-inline:auto}.bar nav a{text-decoration:none;font-size:.9rem;color:#5b493b}.bar nav a:hover{color:#714426}.lang{display:flex;align-items:center;gap:.55rem;white-space:nowrap}.lang a{text-decoration:none;font-size:.85rem;color:#5b493b;padding:.35rem .65rem;border-radius:999px;border:1px solid transparent}.lang a:hover{color:#714426}.lang a.active{background:#3a2418;color:#fff;font-weight:800}.lang .dot{width:3px;height:3px;border-radius:50%;background:#c79b55}.map{text-decoration:none;background:#3a2418;color:#fff;padding:.65rem 1rem;border-radius:999px;font-size:.86rem;font-weight:700}@media(max-width:900px){.bar nav{display:none}}@media(max-width:480px){.map{display:none}}
 </style>

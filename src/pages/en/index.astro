@@ -1,0 +1,269 @@
+---
+export const prerender = true;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const site = Astro.site?.toString().replace(/\/$/, '');
+const pageUrl = site ? `${site}/en/` : undefined;
+const attractionId = site ? `${site}/en/#attraction` : '#attraction';
+const websiteId = site ? `${site}/en/#website` : '#website';
+const heroImage = site ? `${site}/images/souk-al-mubarakiya-night.jpg` : '/images/souk-al-mubarakiya-night.jpg';
+const address = {
+  '@type': 'PostalAddress',
+  streetAddress: 'Al-Mubarakiya, Gharabally Souq St',
+  addressLocality: 'Kuwait City',
+  addressRegion: 'Al-Asimah Governorate',
+  postalCode: '13000',
+  addressCountry: 'KW'
+};
+const faq = [
+  ['Where is Souk Al-Mubarakiya located?','Souk Al-Mubarakiya is in the Al-Mubarakiya district of Kuwait City, on Gharabally Souq Street, in Al-Asimah Governorate, State of Kuwait. Nearest reference point: Plus Code 9XFF+G5.'],
+  ['Does Souk Al-Mubarakiya require an entrance ticket?','Entry to the general souk area is free and does not require a ticket. Purchases and some separate activities or services have their own costs.'],
+  ['What is the best time to visit Souk Al-Mubarakiya?','The atmosphere is usually pleasant in the milder months, and the late-afternoon and evening period suits those who enjoy the lively souk buzz. A morning visit is often best if you prefer relative calm.'],
+  ['How long does a visit take?','Allow about an hour and a half to three hours to explore the lanes and specialist souks and enjoy a meal or drink. The duration is an estimate and varies with your interests.'],
+  ['How do I get there from Kuwait International Airport?','Take a licensed taxi from the airport, or public transport lines heading toward the city center, then continue on foot or by a short taxi ride. Check official schedules before you leave, as they can change.'],
+  ['Are there parking facilities?','There are public and multi-storey parking facilities in central Kuwait City around the souk area. Pressure increases in the evenings and on holidays, so allow extra time to find a space.'],
+  ['Are there toilets and visitor services?','Public services exist within the souk area and surrounding facilities, but opening hours and ease of access may vary. It is best to ask on-site when you arrive.'],
+  ['Is the souk suitable for wheelchair users?','Some lanes are wide and paved, while parts of the historic souk can be crowded or have uneven transitions. Prefer the wider entrances and avoid peak hours when you need easier movement.'],
+  ['What makes Souk Al-Mubarakiya historically significant?','The area is part of an old network of souks at the heart of Kuwait City, linked to the trade of food, perfumes, textiles, weapons, beshts (cloaks) and more. The year 1897 relates to Sheikh Mubarak\'s kiosk, not necessarily to the founding date of the whole souk.']
+];
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  '@id': attractionId,
+  ...(pageUrl ? { url: pageUrl } : {}),
+  name: 'Souk Al-Mubarakiya',
+  alternateName: ['Souk Al-Mubarakiya','Al-Mubarakiya Old Souk','Kuwait City Souk Al-Mubarakiya','سوق المباركية'],
+  description: 'A comprehensive visitor guide to Souk Al-Mubarakiya in Kuwait City, Al-Asimah Governorate, State of Kuwait: history, location, visiting hours, transport, facilities and nearby landmarks.',
+  image: [heroImage],
+  isAccessibleForFree: true,
+  address,
+  geo: { '@type':'GeoCoordinates', latitude: 29.374588243816994, longitude: 47.973118089148905 },
+  containedInPlace: { '@type':'City', name:'Kuwait City', containedInPlace:{ '@type':'Country', name:'State of Kuwait' } },
+  hasMap: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
+  openingHours: 'Mo-Su 08:00-22:00',
+  openingHoursSpecification: {
+    '@type':'OpeningHoursSpecification',
+    dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+    opens:'08:00',
+    closes:'22:00'
+  },
+  aggregateRating: { '@type':'AggregateRating', ratingValue:'4.4', ratingCount:'26505', bestRating:'5' },
+  sameAs: [
+    'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
+    'https://www.visitkuwait.gov.kw/',
+    'https://www.wikidata.org/wiki/Q7565064'
+  ]
+};
+const webPageSchema = {
+  '@context':'https://schema.org',
+  '@type':'WebPage',
+  ...(pageUrl ? { url: pageUrl } : {}),
+  name:'Souk Al-Mubarakiya Visitor Guide in Kuwait City',
+  inLanguage:'en',
+  dateModified:'2026-09-01',
+  about:{ '@id': attractionId },
+  mainEntity:{ '@id': attractionId },
+  isPartOf:{ '@type':'WebSite', '@id':websiteId, ...(pageUrl ? { url:pageUrl } : {}), name:'Souk Al-Mubarakiya Guide' }
+};
+const faqSchema = {
+  '@context':'https://schema.org', '@type':'FAQPage', mainEntity: faq.map(([q,a]) => ({ '@type':'Question', name:q, acceptedAnswer:{'@type':'Answer',text:a} }))
+};
+
+const photos = [
+  {
+    src:'/images/souk-al-mubarakiya-night.jpg',
+    alt:'Souk Al-Mubarakiya - main view in Kuwait City, Kuwait, at night',
+    credit:'Photo: Zairon — Creative Commons Attribution 4.0'
+  },
+  {
+    src:'/images/souk-al-mubarakiya-day.jpg',
+    alt:'Souk Al-Mubarakiya - a daytime view of the souk lanes in Kuwait City',
+    credit:'Photo: Aziz1005 — public domain'
+  }
+];
+const mapsUrl = 'https://maps.app.goo.gl/Unad47yFEGSrn79r6';
+const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092.0451984373562!2d47.973118089148905!3d29.374588243816994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf84e895d75539%3A0xe2081f7936a852b0!2sSouk%20Al-Mubarakiya!5e1!3m2!1sen!2s!4v1788189123289!5m2!1sen!2s';
+---
+<BaseLayout
+  title="Souk Al-Mubarakiya (Kuwait City) | Visitor guide and location"
+  description="Discover Souk Al-Mubarakiya, the historic landmark in Kuwait City, Al-Asimah Governorate, State of Kuwait. View the location map, visiting hours, nearby landmarks and travel tips."
+  path="/en/"
+  image="/images/souk-al-mubarakiya-night.jpg"
+  imageAlt="Souk Al-Mubarakiya in Kuwait City — the historic souk lanes at night"
+  lang="en"
+  jsonLd={[attractionSchema, webPageSchema, faqSchema]}
+>
+  <section class="hero geometric">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Kuwait City · Al-Qibla · Heart of the historic souks</p>
+        <h1>Souk Al-Mubarakiya (Kuwait City)</h1>
+        <p class="hero-lead">Shaded lanes, the scent of spices and coffee, wooden shopfronts, and specialist souks that preserve a picture of Kuwait&rsquo;s old commercial life.</p>
+        <div class="facts" aria-label="Quick facts">
+          <span><b>08:00&ndash;22:00</b><small>Hours as provided in the site data</small></span>
+          <span><b>4.4 / 5</b><small>Maps rating, changes over time</small></span>
+          <span><b>9XFF+G5</b><small>Plus Code in Kuwait City</small></span>
+        </div>
+        <div class="actions"><a class="primary" href="#visit">Plan your visit</a><a class="secondary" href={mapsUrl} rel="noopener noreferrer">Directions on the map</a></div>
+      </div>
+      <figure class="arch hero-photo">
+        <img src={photos[0].src} alt={photos[0].alt} width="960" height="656" loading="eager" fetchpriority="high" />
+        <figcaption>{photos[0].credit}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="identity-strip">
+    <div class="wrap identity-grid">
+      <div><small>Name</small><strong>Souk Al-Mubarakiya</strong></div>
+      <div><small>Location</small><strong>Al-Mubarakiya, Gharabally Souq St, Kuwait City</strong></div>
+      <div><small>Coordinates</small><strong dir="ltr">29.374588, 47.973118</strong></div>
+      <div><small>Nature</small><strong>Heritage souk and visitor destination</strong></div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">About the destination</p>
+        <h2 class="section-title">About Souk Al-Mubarakiya</h2>
+        <p class="lead">Welcome to <strong>Souk Al-Mubarakiya</strong>, widely known as the <strong>heart of Kuwait City&rsquo;s historic souks</strong>. It lies in the heart of the capital, in the <strong>Al-Asimah Governorate</strong>, <strong>State of Kuwait</strong>, and is a major hub for visitors to the area.</p>
+        <div class="crumb" aria-label="Geographic sequence"><span>Souk Al-Mubarakiya</span><i>&rarr;</i><span>Kuwait City</span><i>&rarr;</i><span>Al-Asimah Governorate</span><i>&rarr;</i><span>State of Kuwait</span></div>
+        <p class="nearby-lead">When visiting <strong>Souk Al-Mubarakiya</strong>, visitors can explore nearby historic landmarks and attractions, including <strong>Sheikh Mubarak Kiosk</strong> and the <strong>Grand Mosque</strong>, as well as Seif Palace, the Kuwait National Museum and the Sadu House.</p>
+      </div>
+      <aside class="card loc-card">
+        <h3>Location and visiting hours</h3>
+        <dl>
+          <dt>Address</dt><dd dir="ltr">Al-Mubarakiya, Gharabally Souq St, Kuwait City</dd>
+          <dt>Visiting hours</dt><dd>08:00 &ndash; 22:00</dd>
+          <dt>Plus Code</dt><dd dir="ltr">9XFF+G5</dd>
+          <dt>Rating</dt><dd dir="ltr">4.4 / 5 (26,505)</dd>
+        </dl>
+        <a class="loc-link" href={mapsUrl} rel="noopener noreferrer">Directions on Google Maps ↗</a>
+        <a class="loc-link muted" href="https://www.visitkuwait.gov.kw/" rel="noopener noreferrer">Visit Kuwait &mdash; official tourism portal ↗</a>
+      </aside>
+    </div>
+  </section>
+
+  <section id="history" class="section">
+    <div class="wrap history-grid">
+      <div>
+        <p class="eyebrow">Identity of the place</p>
+        <h2 class="section-title">History and significance of Souk Al-Mubarakiya</h2>
+        <p class="lead">The souk is not a single building but an interwoven commercial memory &mdash; academic and official sources describe Al-Mubarakiya as part of the old heart of Kuwait and a network of specialist souks. Kuwait University states that the area&rsquo;s souks have roots stretching back more than 180 years, with more than twenty specialist markets known for different trades and goods.</p>
+        <div class="timeline">
+          <article><b>Before the oil era</b><p>Markets for meat, vegetables, sweets, beshts (cloaks), weapons, dried goods and more formed in the area, a daily exchange point between townspeople and traders.</p></article>
+          <article><b>1897</b><p>This year is linked to the kiosk of Sheikh Mubarak Al-Sabah, a historic landmark within Al-Mubarakiya. It should therefore not be used as a simplified founding date for the whole souk.</p></article>
+          <article><b>1911</b><p>Al-Mubarakiya School opened in the area, a sign of the city center&rsquo;s shift from trade alone toward education and organized public life.</p></article>
+          <article><b>Around 1969&ndash;1970</b><p>The area underwent reorganization and development that preserved the character of the souks and their heritage lanes rather than converting them into a modern enclosed shopping center.</p></article>
+          <article><b>2022 and after</b><p>A fire damaged part of the oldest historic zone, then the debate about protection and restoration renewed the importance of documenting buildings and urban identity.</p></article>
+        </div>
+      </div>
+      <div>
+        <figure class="arch side-photo"><img src={photos[1].src} alt={photos[1].alt} loading="lazy" width="960" height="720" /><figcaption>{photos[1].credit}</figcaption></figure>
+        <aside class="source-note card"><strong>How do we verify the account?</strong><p>We distinguish between the history of individual landmarks and the history of the souk network, and we compare governmental and academic sources instead of repeating popular dates without context.</p></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <p class="eyebrow">Reading the souk</p><h2 class="section-title">What will you see in the lanes?</h2>
+      <div class="market-grid">
+        <article><span>01</span><h3>Specialist souks</h3><p>Historically, parts of Al-Mubarakiya were known by names linked to goods and crafts, such as the besht, sweets, meat, vegetables, weapons and dried-goods markets.</p></article>
+        <article><span>02</span><h3>Shade and wood</h3><p>The covered lanes and wooden elements are not mere decoration; they are a local response to sun and heat and give the souk its architectural identity.</p></article>
+        <article><span>03</span><h3>Food and fragrance</h3><p>Spices, dates, coffee, perfumes and local foods are an essential part of the sensory experience of the place, without limiting the visit to any particular shop.</p></article>
+        <article><span>04</span><h3>Civic landmarks</h3><p>Near the souks stand traces of the history of administration, education and public life, above all Sheikh Mubarak Kiosk and what remains of the old city&rsquo;s memory.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="section">
+    <div class="wrap">
+      <p class="eyebrow">A practical plan</p><h2 class="section-title">Before you go</h2>
+      <div class="planning-grid">
+        <article class="card"><h3>Entry and costs</h3><p>Entry to the general souk area is free and needs no ticket. Pay only for the purchases, food or services you choose. Some landmarks or events may have separate rules.</p></article>
+        <article class="card"><h3>Best time</h3><p>The milder months are more comfortable for walking. Evenings offer a livelier, lit atmosphere, while a morning visit usually allows a relatively quieter exploration.</p></article>
+        <article class="card"><h3>Suggested duration</h3><p>Plan for about an hour and a half to three hours. Add time if you are interested in history, food, or walking to nearby public landmarks.</p></article>
+        <article class="card"><h3>Clothing and conduct</h3><p>Choose comfortable, modest clothing and suitable walking shoes. Respect the privacy of vendors and visitors when taking photos, and ask permission when photographing people up close.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="transport" class="section sand">
+    <div class="wrap">
+      <p class="eyebrow">Getting there</p><h2 class="section-title">Location and how to reach Souk Al-Mubarakiya in Kuwait City</h2>
+      <p class="lead">By plane, bus, taxi or car &mdash; the souk lies in the Al-Mubarakiya district of central Kuwait City on Gharabally Souq Street, Plus Code 9XFF+G5.</p>
+      <div class="transport-grid">
+        <article><b>01</b><div><h3>From Kuwait International Airport</h3><p>The direct option is a licensed taxi from arrivals to central Kuwait City. The airport authority publishes an indicative fare for the journey to Kuwait City; check the posted price at the airport before boarding, as fares may change.</p></div></article>
+        <article><b>02</b><div><h3>Public buses</h3><p>The airport&rsquo;s official transport page lists public routes including 13, 99 and 501. Route 13 passes toward intermediate areas including Mirqab, from where you can continue on foot or by a short taxi ride. Check the schedule and route on the day of your visit.</p></div></article>
+        <article><b>03</b><div><h3>Taxis</h3><p>Use licensed taxis or well-known pick-up points, and ask for the meter or the prevailing regulated fare. Reaching the edge of the souk area is often easier than trying to enter the inner lanes.</p></div></article>
+        <article><b>04</b><div><h3>By private car</h3><p>Aim for the public parking facilities in the central city area, then continue the short distance on foot. In the evening and on holidays, leave a time margin for finding a space and leaving the area.</p></div></article>
+      </div>
+      <div class="map-frame card"><iframe src={mapsEmbedSrc} width="600" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Map of Souk Al-Mubarakiya in Kuwait City"></iframe></div>
+    </div>
+  </section>
+
+  <section id="facilities" class="section">
+    <div class="wrap">
+      <p class="eyebrow">Visitor needs</p><h2 class="section-title">Services and facilities around the souk</h2>
+      <p class="lead">We list only the types of services to keep the guide neutral and avoid turning it into an advertising page. Availability and hours may change, so check local signs on arrival.</p>
+      <div class="facility-grid">
+        <article><i>🚻</i><h3>Restrooms</h3><p>Public services exist within the souk area and surrounding facilities; opening hours and accessibility may vary.</p></article>
+        <article><i>🅿️</i><h3>Parking</h3><p>Public and multi-storey parking around the central city area. Pressure is higher in the evening and on holidays.</p></article>
+        <article><i>🍽️</i><h3>Food</h3><p>Popular restaurants, grills, rice dishes, seafood, bread, sweets and dates, plus coffee and tea shops.</p></article>
+        <article><i>🛏️</i><h3>Accommodation</h3><p>Hotels and serviced apartments of various grades in central Kuwait City; choose according to budget and proximity to transport routes.</p></article>
+        <article><i>🛒</i><h3>Daily goods</h3><p>Grocery stores, food markets, pharmacies and everyday services in the nearby urban area.</p></article>
+        <article><i>⛽</i><h3>Fuel and charging</h3><p>Fuel stations and electric charging points are distributed around the city; check the live map and compatibility before relying on a specific point.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark food">
+    <div class="wrap split">
+      <div><p class="eyebrow">Around the table</p><h2 class="section-title">What to eat without commercial lists?</h2><p class="lead">Treat Al-Mubarakiya as a district of flavours, not a restaurant list. Look for the types that express local cuisine and suit your budget and dietary needs.</p></div>
+      <div class="chips"><span>Kuwaiti-style rice and meats</span><span>Grills</span><span>Seafood</span><span>Local bread</span><span>Sweets and dates</span><span>Coffee and tea</span><span>Spices and herbs</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">In the near surroundings</p><h2 class="section-title">Landmarks and attractions around Souk Al-Mubarakiya</h2>
+      <p class="lead">Public landmarks that complete the reading of central Kuwait City and can be reached on foot from the souk area.</p>
+      <div class="nearby-grid">
+        <article class="card"><h3>Sheikh Mubarak Kiosk</h3><p>A historic landmark within Al-Mubarakiya linked to administration and public life in the era of Sheikh Mubarak Al-Sabah, and the best point for understanding why the souk carries his name.</p></article>
+        <article class="card"><h3>The Grand Mosque</h3><p>A prominent religious and architectural landmark in central Kuwait City. Respect prayer times and entry and dress requirements when visiting.</p></article>
+        <article class="card"><h3>Seif Palace and its surroundings</h3><p>An area of political and architectural importance on the old urban waterfront. Some parts are not an open tourist facility, so view it from permitted public places.</p></article>
+        <article class="card"><h3>Kuwait National Museum and Sadu House</h3><p>Cultural institutions that help place the souk in the wider context of Kuwait&rsquo;s maritime, Bedouin and craft life. Check official opening hours in advance.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section sand">
+    <div class="wrap faq-wrap">
+      <div><p class="eyebrow">Quick answers</p><h2 class="section-title">Frequently asked questions about Souk Al-Mubarakiya</h2><p class="lead">Operational information changes. Where this page conflicts with a recent official announcement, follow the official announcement.</p></div>
+      <div class="faq-list">{faq.map(([q,a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+    </div>
+  </section>
+
+  <section class="section sources">
+    <div class="wrap source-grid">
+      <div><p class="eyebrow">Documentation method</p><h2 class="section-title">Public and academic sources, not advertising content</h2><p class="lead">To link the page to the real place, naming, coordinates and the map are reviewed against location data, and the historical account is compared with official Kuwaiti and academic sources.</p></div>
+      <div class="source-links">
+        <a href="https://www.visitkuwait.gov.kw/" rel="noopener noreferrer">Visit Kuwait &mdash; the official tourism portal of the State of Kuwait <span>↗</span></a>
+        <a href="https://e.gov.kw/sites/kgoArabic/Pages/Visitors/TourismInKuwait/ActivitiesInKuwaitShopping.aspx" rel="noopener noreferrer">Official portal: shopping in Kuwait mentioning Souk Al-Mubarakiya <span>↗</span></a>
+        <a href="https://news.gov.kw/News/MilafaatKhasa/Details/141446" rel="noopener noreferrer">Ministry of Information: a file on Souk Al-Mubarakiya and its historic souks <span>↗</span></a>
+        <a href="https://www.ku.edu.kw/ar/media-center/news/kuw246554" rel="noopener noreferrer">Kuwait University: documenting the history of Al-Mubarakiya and its urban development <span>↗</span></a>
+        <a href="https://www.baladia.gov.kw/" rel="noopener noreferrer">Kuwait Municipality: the general municipal reference for services and urban regulation <span>↗</span></a>
+        <a href="https://www.kuwaitairport.gov.kw/ar/from-and-to-the-airport/transport/airport-taxies-and-buses/" rel="noopener noreferrer">Kuwait International Airport: airport taxis and buses <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.hero{padding:70px 0 82px;border-bottom:1px solid var(--line)}.hero-grid{display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:58px}.hero h1{font-size:clamp(3.4rem,8vw,7rem);line-height:.95;margin:.4rem 0 1.4rem;letter-spacing:-.055em;color:#3a2418}.hero-lead{font-size:1.22rem;max-width:670px;color:#5a493c}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}.facts span{border-top:1px solid var(--line);padding-top:13px;display:grid;gap:2px}.facts b{font-size:1rem}.facts small{font-size:.72rem;color:#796655}.actions{display:flex;gap:10px;flex-wrap:wrap}.actions a{padding:.86rem 1.25rem;border-radius:999px;text-decoration:none;font-weight:800}.primary{background:#3a2418;color:#fff}.secondary{border:1px solid rgba(58,36,24,.25)}.hero-photo{height:650px;background:#c9b28e}.hero-photo img,.side-photo img{width:100%;height:100%;object-fit:cover}.hero-photo figcaption,.side-photo figcaption{position:absolute;bottom:0;right:0;left:0;padding:22px 18px 12px;background:linear-gradient(transparent,rgba(0,0,0,.66));color:#fff;font-size:.72rem}.identity-strip{background:#fff7e9;border-bottom:1px solid var(--line)}.identity-grid{display:grid;grid-template-columns:1fr 2fr 1.3fr 1fr}.identity-grid>div{padding:24px 18px;border-left:1px solid var(--line);display:grid;gap:2px}.identity-grid>div:first-child{border-right:1px solid var(--line)}.identity-grid small{color:#806d5c;font-size:.74rem}.identity-grid strong{font-size:.9rem}.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:start}.about-grid .lead{margin-top:.6rem}.nearby-lead{font-size:1.05rem;color:#5d4b3d;max-width:660px;margin-top:1.2rem}.crumb{display:inline-flex;flex-wrap:wrap;gap:.45rem;align-items:center;font-size:.9rem;font-weight:800;color:#714426;background:rgba(199,155,85,.16);border-radius:999px;padding:.6rem 1.1rem;margin:1.1rem 0}.crumb i{font-style:normal;color:#c79b55}.crumb span:last-child{color:#3a2418}.loc-card{padding:26px;border-radius:26px;position:sticky;top:110px}.loc-card h3{margin:0 0 1rem;font-size:1.25rem;color:#3a2418}.loc-card dl{display:grid;gap:12px;margin:0 0 1.2rem}.loc-card dt{font-size:.74rem;color:#806d5c;font-weight:800;margin:0}.loc-card dd{margin:0;font-size:.95rem;color:#3a2418;font-weight:700}.loc-card .loc-link{display:block;text-decoration:none;background:#3a2418;color:#fff;padding:.75rem 1rem;border-radius:999px;text-align:center;font-weight:800;margin-top:.7rem;font-size:.9rem}.loc-card .loc-link.muted{background:transparent;color:#714426;border:1px solid rgba(113,68,38,.25)}.history-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:70px}.timeline{margin-top:36px;border-right:1px solid rgba(113,68,38,.25);padding-right:28px}.timeline article{position:relative;margin-bottom:28px}.timeline article::before{content:"";position:absolute;right:-34px;top:.6rem;width:11px;height:11px;border-radius:50%;background:#c79b55;box-shadow:0 0 0 6px #f7eedf}.timeline b{color:#714426}.timeline p{margin:.3rem 0;color:#5d4b3d}.side-photo{height:520px;position:sticky;top:110px}.source-note{padding:20px;margin-top:18px}.source-note p{font-size:.9rem;color:#685647;margin:.35rem 0}.dark{background:#251913;color:#f4e8d6}.dark .eyebrow{color:#d5b276}.dark .section-title{color:#fff}.dark .lead{color:#c9b8a5}.market-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.12);border-radius:28px;overflow:hidden;margin-top:34px}.market-grid article{padding:28px;border-left:1px solid rgba(255,255,255,.12)}.market-grid article:last-child{border-left:0}.market-grid span{color:#c79b55;font-size:.75rem}.market-grid h3{font-size:1.2rem}.market-grid p{color:#bca995;font-size:.9rem}.planning-grid,.nearby-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:30px}.planning-grid article,.nearby-grid article{padding:28px}.planning-grid h3,.nearby-grid h3{margin-top:0}.planning-grid p,.nearby-grid p{color:#685647;margin-bottom:0}.sand{background:#efe1ca}.transport-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:30px 0}.transport-grid article{display:flex;gap:18px;padding:24px;border-top:1px solid rgba(113,68,38,.25)}.transport-grid b{font-size:.75rem;color:#855531}.transport-grid h3{margin:0 0 .35rem}.transport-grid p{margin:0;color:#685647}.map-frame{overflow:hidden;padding:8px;background:#fff}.map-frame iframe{width:100%;height:460px;border-radius:20px}.facility-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.facility-grid article{padding:24px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.65)}.facility-grid i{font-style:normal;font-size:1.35rem}.facility-grid h3{margin:.6rem 0 .2rem}.facility-grid p{margin:0;color:#6c594a;font-size:.9rem}.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}.chips{display:flex;gap:10px;flex-wrap:wrap}.chips span{border:1px solid rgba(255,255,255,.2);padding:.72rem 1rem;border-radius:999px;color:#eadbc7}.faq-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:65px}.faq-list{display:grid;gap:10px}.faq-list details{background:rgba(255,255,255,.62);border:1px solid rgba(113,68,38,.16);border-radius:18px;padding:0 20px}.faq-list summary{cursor:pointer;font-weight:800;padding:18px 0}.faq-list p{color:#685647;margin:0 0 18px}.source-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}.source-links{display:grid}.source-links a{text-decoration:none;padding:16px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;font-weight:700}.source-links a:hover{color:#714426}@media(max-width:900px){.hero-grid,.history-grid,.about-grid,.split,.faq-wrap,.source-grid{grid-template-columns:1fr}.hero-photo{height:520px}.identity-grid{grid-template-columns:repeat(2,1fr)}.market-grid{grid-template-columns:repeat(2,1fr)}.market-grid article:nth-child(2){border-left:0}.market-grid article:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.12)}.side-photo{position:relative;top:auto}.loc-card{position:relative;top:auto}.facility-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.hero{padding-top:45px}.hero h1{font-size:3.8rem}.hero-photo{height:440px}.facts{grid-template-columns:1fr}.identity-grid,.planning-grid,.nearby-grid,.transport-grid,.facility-grid,.market-grid{grid-template-columns:1fr}.identity-grid>div{border-left:1px solid var(--line);border-right:1px solid var(--line)}.market-grid article{border-left:0;border-bottom:1px solid rgba(255,255,255,.12)}.market-grid article:last-child{border-bottom:0}.map-frame iframe{height:390px}}
+/* LTR overrides for the English page */
+html[dir="ltr"] .identity-grid>div{border-left:0;border-right:1px solid var(--line)}html[dir="ltr"] .identity-grid>div:first-child{border-left:1px solid var(--line)}html[dir="ltr"] .identity-grid>div:last-child{border-right:0}html[dir="ltr"] .timeline{border-right:0;border-left:1px solid rgba(113,68,38,.25);padding-right:0;padding-left:28px}html[dir="ltr"] .timeline article::before{right:auto;left:-34px}html[dir="ltr"] .market-grid article{border-left:0;border-right:1px solid rgba(255,255,255,.12)}html[dir="ltr"] .market-grid article:last-child{border-right:0}html[dir="ltr"] .market-grid article:nth-child(2){border-right:0}
+</style>

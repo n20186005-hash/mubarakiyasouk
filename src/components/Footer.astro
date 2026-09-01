@@ -1,18 +1,22 @@
 ---
 import Logo from './Logo.astro';
+import { defaultLang, t } from '../i18n/ui';
+import type { Lang } from '../i18n/ui';
+const { lang = defaultLang } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
 ---
 <footer class="footer">
   <div class="wrap">
     <div class="top">
-      <Logo />
-      <div class="links"><a href="/privacy/">سياسة الخصوصية</a><a href="/terms/">شروط الاستخدام</a><a href="/cookies/">إعدادات ملفات تعريف الارتباط</a></div>
+      <Logo lang={lang} />
+      <div class="links"><a href={prefix + '/privacy/'}>{t(lang, 'footer.privacy')}</a><a href={prefix + '/terms/'}>{t(lang, 'footer.terms')}</a><a href={prefix + '/cookies/'}>{t(lang, 'footer.cookies')}</a></div>
     </div>
     <div class="rule"></div>
     <div class="notes">
-      <p>هذا الموقع مشروع مستقل غير ربحي لدليل معلومات الزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية.</p>
-      <p>تُراجع معلومات سوق المباركية بالرجوع إلى المواد العامة الصادرة عن بلدية الكويت، ووزارة الإعلام، والبوابة الإلكترونية الرسمية لدولة الكويت، ومطار الكويت الدولي، ومصادر أكاديمية من جامعة الكويت. لا يتضمن الموقع توصيات تجارية مدفوعة.</p>
-      <p>حقوق الصور: جميع الصور المعروضة تبقى حقوقها وحقوق نشرها للمصورين أو أصحاب التراخيص المبينة في سجل الصور داخل المشروع.</p>
-      <p>© 2026 دليل سوق المباركية في مدينة الكويت. جميع الحقوق محفوظة للمحتوى الأصلي للمشروع.</p>
+      <p>{t(lang, 'footer.note1')}</p>
+      <p>{t(lang, 'footer.note2')}</p>
+      <p>{t(lang, 'footer.note3')}</p>
+      <p>{t(lang, 'footer.copyright')}</p>
     </div>
   </div>
 </footer>

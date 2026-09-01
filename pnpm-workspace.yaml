@@ -1,0 +1,5 @@
+# pnpm 11 settings (single-package project, no workspace packages)
+allowBuilds:
+  esbuild: true
+  workerd: true
+  '@tailwindcss/oxide': true
