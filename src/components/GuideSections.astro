@@ -1,0 +1,176 @@
+---
+interface Props { lang?: 'ar' | 'en'; }
+const { lang = 'ar' } = Astro.props;
+const ar = lang === 'ar';
+
+const seasons = [
+  { when: ar ? 'ديسمبر – فبراير' : 'Dec – Feb',
+    climate: ar ? 'لطيف ومعتدل، معظم الأيام صافية' : 'Mild and pleasant, mostly clear days',
+    crowd: ar ? 'متوسط إلى مرتفع في العطلات' : 'Moderate, higher on holidays',
+    time: ar ? 'النهار كاملًا، خاصة الصباح' : 'Throughout the day, mornings best',
+    tip: ar ? 'الفصل الأنسب للمشي الطويل واستكشاف الممرات بهدوء.' : 'The most comfortable season for long walks through the lanes.' },
+  { when: ar ? 'مارس – أبريل' : 'Mar – Apr',
+    climate: ar ? 'دافئ لطيف، تزداد الحرارة تدريجيًا' : 'Warm and gentle, heat builds gradually',
+    crowd: ar ? 'متوسط' : 'Moderate',
+    time: ar ? 'صباحًا وبعد العصر' : 'Mornings and late afternoons',
+    tip: ar ? 'فترة متوازنة قبل حرارة الصيف؛ مناسبة للتصوير النهاري.' : 'A balanced window before summer heat; good for daytime photography.' },
+  { when: ar ? 'مايو – سبتمبر' : 'May – Sep',
+    climate: ar ? 'حرارة عالية جدًا ورطوبة مرتفعة ظهرًا' : 'Very high heat and midday humidity',
+    crowd: ar ? 'أخف نهارًا، ينشط ليلًا' : 'Quieter by day, livelier at night',
+    time: ar ? 'بعد المغرب حتى متأخرًا' : 'After sunset into the late evening',
+    tip: ar ? 'تجنّب الذروة الظهيرة، وابدأ الجولة مع انخفاض الحرارة مساءً.' : 'Avoid the midday peak; start once the heat eases in the evening.' },
+  { when: ar ? 'أكتوبر – نوفمبر' : 'Oct – Nov',
+    climate: ar ? 'يعود إلى الاعتدال والتهوية المنعشة' : 'Returns to mild, fresh air',
+    crowd: ar ? 'يتزايد تدريجيًا' : 'Gradually increasing',
+    time: ar ? 'نهارًا ومساءً' : 'Day and evening',
+    tip: ar ? 'فصل انتقال مريح يجمع between الهدوء والطقس اللطيف.' : 'A comfortable transition blending calm crowds with gentle weather.' }
+];
+
+const personas = [
+  { tag: ar ? 'عائلات مع أطفال' : 'Families with children',
+    lead: ar ? 'مسارات هادئة وقريبة، مع فواصل للراحة والطعام.' : 'Short, close-by routes with breaks for rest and food.',
+    items: ar ? ['ابدأوا من المدخل الأوسع لتجنّب الزحام','رتّبوا فاصلاً للطعام في منطقة الجلوس','تجنّبوا ساعات الذروة ظهرًا','احملوا ماءً كافيًا لكل الأعمار'] : ['Start at the wider entrance to avoid crowds','Plan a seating break for a meal','Skip the midday peak','Carry enough water for all ages'] },
+  { tag: ar ? 'المصورون والطبيعة' : 'Photographers & details',
+    lead: ar ? 'إضاءة ناعمة وخشب وظلال تتغير مع الساعة.' : 'Soft light, woodwork and shifting shade through the hours.',
+    items: ar ? ['الساعة الذهبية بعد العصر تعطي ألوانًا دافئة','التقطوا الواجهات الخشبية والممرات المقببة',' respectsوا خصوصية الباعة عند تصوير الأشخاص','جرّبوا ليل السوق للأجواء المضيئة'] : ['Golden hour after afternoon gives warm tones','Capture wooden facades and arched lanes','Respect vendors’ privacy when photographing people','Try the souk at night for the lit atmosphere'] },
+  { tag: ar ? 'حركة مخفّفة / بلا عوائق' : 'Low-effort / accessible',
+    lead: ar ? 'مسارات مسطحة وقصيرة مع راحة متكررة.' : 'Flat, short routes with frequent rest points.',
+    items: ar ? ['اختاروا المداخل الواسعة والممرات الممهدة','وزّعوا المسافة على فترات قصيرة','استريحوا في الأماكن المظللة','راجعوا المرافق العامة عند الوصول'] : ['Use wide entrances and paved lanes','Split the walk into short stretches','Rest in shaded spots','Check public facilities on arrival'] }
+];
+
+const routes = [
+  { kind: ar ? 'جولة نصف يوم' : 'Half-day', dur: ar ? 'نحو 3 ساعات' : 'about 3 hours',
+    lead: ar ? 'لمحة سريعة على روح السوق دون استعجال.' : 'A quick feel of the souk’s spirit without rushing.',
+    steps: ar ? ['المدخل الرئيسي وأول الممرات','سوق التوابل والقهوة','كشك الشيخ مبارك','فاصل طعام خفيف','العودة عبر الممر المركزي'] : ['Main entrance and first lanes','Spice and coffee market','Sheikh Mubarak Kiosk','A light food break','Back through the central lane'] },
+  { kind: ar ? 'جولة يوم كامل' : 'Full-day', dur: ar ? 'نحو 6 ساعات' : 'about 6 hours',
+    lead: ar ? 'تجربة أعمق تضم الأسواق والمعالم المجاورة.' : 'A deeper experience with the souk and nearby landmarks.',
+    steps: ar ? ['جولة صباحية في الممرات المتخصصة','زيارة المتحف الوطني وبيت السدو','غداء في محيط وسط المدينة','فترة مسائية في السوق','ختام عند المسجد الكبير أو قصر السيف من الأماكن العامة'] : ['Morning walk through specialist lanes','Kuwait National Museum and Sadu House','Lunch around central Kuwait City','Evening stroll in the souk','Close near the Grand Mosque or Seif Palace from public areas'] }
+];
+
+const science = [
+  { h: ar ? 'حفظ الذاكرة العمرانية' : 'Preserving urban memory',
+    p: ar ? 'السوق شبكة حية من الأسواق المتخصصة تمتد جذورها لأكثر من 180 عامًا. فهم طبيعة المكان يبدأ من التفريق بين تاريخ المعالم الفردية وتاريخ الشبكة الكاملة.' : 'The souk is a living network of specialist markets with roots beyond 180 years. Understanding it starts by separating the history of individual landmarks from that of the whole network.' },
+  { h: ar ? 'تصوير يحترم الخصوصية' : 'Photography that respects privacy',
+    p: ar ? 'الصور توثّق الجمال، لكن يُرجى طلب الإذن عند تصوير الباعة أو الزوار عن قرب، واحترام الأماكن ذات الخصوصية.' : 'Photos capture beauty, but ask before close-up shots of vendors or visitors, and respect spaces that call for privacy.' },
+  { h: ar ? 'سلامة الحرارة والصحة' : 'Heat & health awareness',
+    p: ar ? 'في أشهر الحرارة، ابدأوا مع انخفاض الحرارة، واشربوا الماء بانتظام، وابحثوا عن الظل. الأعراف المحلية تحترم أوقات الصلاة والسكينة.' : 'In the hot months, start when it cools, drink water often, and use the shade. Local norms respect prayer times and calm.' },
+  { h: ar ? 'دعم محلي بلا تحيز تجاري' : 'Local support, no commercial bias',
+    p: ar ? 'يدعم الدليل المعرفة بأنواع الخدمات لا بأسماء متاجر محددة، حفاظًا على حياده كمشروع غير ربحي.' : 'The guide supports knowledge by types of service, not by naming specific shops, keeping it neutral as a non-profit project.' },
+  { h: ar ? 'صفر نفايات واحترام المكان' : 'Zero waste & respect',
+    p: ar ? 'خذوا نفاياتكم معكم، ولا تلمسوا المعروضات التراثية أو مقتنيات المتاجر دون إذن. الزيارة المسؤولة تحمي المكان للأجيال القادمة.' : 'Take your litter with you and do not handle heritage displays or goods without permission. Responsible visits protect the place for the next generations.' }
+];
+---
+
+{/* Seasonal strategy */}
+<section class="section sand guide-season">
+  <div class="wrap">
+    <p class="eyebrow">{ar ? 'استراتيجية الفصول' : 'Seasonal strategy'}</p>
+    <h2 class="section-title">{ar ? 'متى تزور حسب الفصول؟' : 'When to visit by season'}</h2>
+    <p class="lead">{ar ? 'قراءة عامة مستمدة من المناخ المعتاد للكويت عبر السنوات، لا من أرقام لحظية.' : 'A general read from Kuwait’s usual climate over the years, not from any single snapshot.' }</p>
+    <div class="season-table" role="table">
+      <div class="season-row season-head" role="row">
+        <span>{ar ? 'الفصل' : 'Season'}</span>
+        <span>{ar ? 'المناخ' : 'Climate'}</span>
+        <span>{ar ? 'الزحام' : 'Crowds'}</span>
+        <span>{ar ? 'أفضل وقت' : 'Best time'}</span>
+        <span>{ar ? 'تلميح' : 'Tip'}</span>
+      </div>
+      {seasons.map((s) => (
+        <div class="season-row" role="row">
+          <span class="season-when">{s.when}</span>
+          <span>{s.climate}</span>
+          <span>{s.crowd}</span>
+          <span>{s.time}</span>
+          <span>{s.tip}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Persona routes */}
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow">{ar ? 'حسب نوع الزائر' : 'By type of visitor'}</p>
+    <h2 class="section-title">{ar ? 'مسارات مخصّصة لكل زائر' : 'Routes tailored to you'}</h2>
+    <p class="lead">{ar ? 'ثلاثة توجّهات شائعة، اختر ما يناسب رغبتك ووتيرة مجموعتك.' : 'Three common approaches — pick the one that fits your group and pace.' }</p>
+    <div class="persona-grid">
+      {personas.map((p) => (
+        <article class="card persona">
+          <h3>{p.tag}</h3>
+          <p class="persona-lead">{p.lead}</p>
+          <ul>{p.items.map((i) => <li>{i}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Half / full day routes */}
+<section class="section dark guide-routes">
+  <div class="wrap">
+    <p class="eyebrow">{ar ? 'خطط زمنية' : 'Time plans'}</p>
+    <h2 class="section-title">{ar ? 'مسارات عامة مقترحة' : 'Suggested general routes'}</h2>
+    <div class="route-grid">
+      {routes.map((r) => (
+        <article class="route-card">
+          <div class="route-head"><b>{r.kind}</b><span>{r.dur}</span></div>
+          <p>{r.lead}</p>
+          <ol>{r.steps.map((s) => <li>{s}</li>)}</ol>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* Science & visitor responsibility */}
+<section class="section">
+  <div class="wrap">
+    <p class="eyebrow">{ar ? 'معرفة ومسؤولية' : 'Knowledge & responsibility' }</p>
+    <h2 class="section-title">{ar ? 'الوعي العلمي ومسؤولية الزائر' : 'Science awareness & visitor responsibility'}</h2>
+    <p class="lead">{ar ? 'بصفته مشروعًا غير ربحي، يقدّم الدليل سياقًا يساعد على فهم المكان واحترامه.' : 'As a non-profit project, the guide offers context that helps you understand and respect the place.' }</p>
+    <div class="science-grid">
+      {science.map((s) => (
+        <article class="card sc-card">
+          <h3>{s.h}</h3>
+          <p>{s.p}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .guide-season .season-table { margin-top:30px; border:1px solid var(--line); border-radius:22px; overflow:hidden; }
+  .season-row { display:grid; grid-template-columns: 1.1fr 1.6fr 1fr 1.2fr 1.8fr; gap:14px; padding:14px 18px; border-bottom:1px solid var(--line); font-size:.92rem; }
+  .season-row:last-child { border-bottom:0; }
+  .season-head { background:#3a2418; color:#fff; font-weight:800; }
+  .season-when { font-weight:800; color:#3a2418; }
+  .persona-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:30px; }
+  .persona { padding:26px; }
+  .persona h3 { margin-top:0; color:#3a2418; }
+  .persona-lead { color:#5d4b3d; font-size:.95rem; }
+  .persona ul { margin:0; padding-inline-start:1.1rem; color:#685647; display:grid; gap:6px; }
+  .dark .route-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:22px; padding:26px; }
+  .route-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .route-head b { font-size:1.3rem; color:#fff; }
+  .route-head span { color:#d5b276; font-weight:800; }
+  .route-card p { color:#c9b8a5; }
+  .route-card ol { color:#eadbc7; padding-inline-start:1.2rem; display:grid; gap:6px; }
+  .science-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px; }
+  .sc-card { padding:24px; }
+  .sc-card h3 { margin-top:0; color:#3a2418; font-size:1.1rem; }
+  .sc-card p { color:#685647; margin-bottom:0; font-size:.92rem; }
+  html[dir="ltr"] .persona ul, html[dir="ltr"] .route-card ol { padding-inline-start:1.2rem; }
+  @media (max-width: 900px){
+    .persona-grid, .science-grid { grid-template-columns:1fr 1fr; }
+    .season-row { grid-template-columns: 1fr 1fr; }
+    .season-head { display:none; }
+    .season-row span:nth-child(n+3):not(.season-when) { display:none; }
+  }
+  @media (max-width: 620px){
+    .persona-grid, .science-grid { grid-template-columns:1fr; }
+    .season-row { grid-template-columns:1fr; }
+    .season-row span { display:block; }
+  }
+</style>

@@ -1,7 +1,7 @@
 globalThis.process ??= {};
 globalThis.process.env ??= {};
-import { a as DefaultFetchHandler, i as App, o as manifest } from "./chunks/entrypoints_QiL2BHqs.mjs";
-import "./chunks/image-binding-transform_DtbdhttE.mjs";
+import { a as DefaultFetchHandler, i as App, o as manifest } from "./chunks/entrypoints_DyDlKBau.mjs";
+import "./chunks/image-binding-transform_Dikhe6rp.mjs";
 import "cloudflare:workers";
 //#region \0virtual:astro-cloudflare:config
 var sessionKVBindingName = "SESSION";
@@ -9,17 +9,17 @@ var sessionKVBindingName = "SESSION";
 //#region \0virtual:astro:fetchable
 var _virtual_astro_fetchable_default = new DefaultFetchHandler();
 //#endregion
-//#region node_modules/.pnpm/astro@7.2.9_@emnapi+core@1._323dd02df5832426ea995560b4ce5063/node_modules/astro/dist/core/app/entrypoints/virtual/prod.js
+//#region node_modules/astro/dist/core/app/entrypoints/virtual/prod.js
 var createApp$1 = ({ streaming } = {}) => {
 	const app = new App(manifest, streaming);
 	app.setFetchHandler(_virtual_astro_fetchable_default);
 	return app;
 };
 //#endregion
-//#region node_modules/.pnpm/astro@7.2.9_@emnapi+core@1._323dd02df5832426ea995560b4ce5063/node_modules/astro/dist/core/app/entrypoints/virtual/index.js
+//#region node_modules/astro/dist/core/app/entrypoints/virtual/index.js
 var createApp = createApp$1;
 //#endregion
-//#region node_modules/.pnpm/@astrojs+internal-helpers@0.10.4/node_modules/@astrojs/internal-helpers/dist/request.js
+//#region node_modules/@astrojs/internal-helpers/dist/request.js
 function getFirstForwardedValue(multiValueHeader) {
 	return multiValueHeader?.toString()?.split(",").map((e) => e.trim())?.[0];
 }
@@ -32,7 +32,7 @@ function getValidatedIpFromHeader(headerValue) {
 	if (raw && isValidIpAddress(raw)) return raw;
 }
 //#endregion
-//#region node_modules/.pnpm/@astrojs+cloudflare@14.2.5__9a615c8f77d82d387af0e9006d67f5cf/node_modules/@astrojs/cloudflare/dist/utils/cf-helpers.js
+//#region node_modules/@astrojs/cloudflare/dist/utils/cf-helpers.js
 function matchStaticAsset(manifest, requestUrl, env) {
 	const { pathname } = new URL(requestUrl);
 	if (manifest.assets.has(pathname)) return env.ASSETS.fetch(requestUrl.replace(/\.html$/, ""));
@@ -71,7 +71,7 @@ function getClientAddress(request) {
 	return getValidatedIpFromHeader(request.headers.get("cf-connecting-ip"));
 }
 //#endregion
-//#region node_modules/.pnpm/@astrojs+cloudflare@14.2.5__9a615c8f77d82d387af0e9006d67f5cf/node_modules/@astrojs/cloudflare/dist/utils/cf.js
+//#region node_modules/@astrojs/cloudflare/dist/utils/cf.js
 function injectSessionBinding(manifest, env) {
 	if (env["SESSION"]) {
 		const sessionConfigOptions = manifest.sessionConfig?.options ?? {};
