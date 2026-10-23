@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="إعدادات التخزين | Souk Al-Mubarakiya" description="معلومات واختيارات هذا الدليل المستقل للزوار." path="/cookies/" lang="ar">
+<BaseLayout title="إعدادات التخزين | Souk Al-Mubarakiya" description="فعّل تحليلات Google الاختيارية أو اسحبها، وتحقق من الاختيار المحفوظ وحدود التحكم بقياسات الاستضافة." path="/cookies/" lang="ar">
 <section class="legal section"><div class="wrap narrow cookie-wrap"><h1>إعدادات التخزين</h1><p class="updated">آخر تحديث: 23 أكتوبر 2026</p><p class="lead">تحكم في خيار Google Analytics الحالي. هذا لا يتحكم في قياسات استضافة Cloudflare المستقلة أو خريطة Google المضمّنة.</p><form id="cookie-form" class="settings"><label><input id="analytics" type="checkbox" /> السماح بـ Google Analytics</label><p>يلزم تخزين الاختيار لتذكر هذا الإعداد. لا تتوفر حاليًا تفضيلات واجهة اختيارية أو أدوات إعلانية.</p><div class="buttons"><button type="submit">حفظ الاختيار</button><button id="reject" type="button" class="outline">رفض التحليلات</button></div><p id="save-status" role="status" aria-live="polite"></p></form><p><a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">Cloudflare: data origin and collection</a></p><p><a href="/">دليل الزيارة</a> · <a href="/privacy/">الخصوصية</a> · <a href="/cookies/">إعدادات التخزين</a></p></div></section>
 </BaseLayout>
 <script is:inline>

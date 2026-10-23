@@ -13,7 +13,7 @@ var cookies_exports = /* @__PURE__ */ __exportAll({
 var $$Cookies = createComponent(($$result, $$props, $$slots) => {
 	return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, {
 		"title": "إعدادات التخزين | Souk Al-Mubarakiya",
-		"description": "معلومات واختيارات هذا الدليل المستقل للزوار.",
+		"description": "فعّل تحليلات Google الاختيارية أو اسحبها، وتحقق من الاختيار المحفوظ وحدود التحكم بقياسات الاستضافة.",
 		"path": "/cookies/",
 		"lang": "ar",
 		"data-astro-cid-gp47bozz": true

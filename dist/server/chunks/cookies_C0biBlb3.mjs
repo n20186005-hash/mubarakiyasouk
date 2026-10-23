@@ -13,7 +13,7 @@ var cookies_exports = /* @__PURE__ */ __exportAll({
 var $$Cookies = createComponent(($$result, $$props, $$slots) => {
 	return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, {
 		"title": "Cookie Settings | Souk Al-Mubarakiya",
-		"description": "Information and choices for this independent visitor guide.",
+		"description": "Enable or withdraw optional Google Analytics, check the effective saved choice and understand the separate hosting beacon.",
 		"path": "/en/cookies/",
 		"lang": "en",
 		"data-astro-cid-ivyvihgz": true

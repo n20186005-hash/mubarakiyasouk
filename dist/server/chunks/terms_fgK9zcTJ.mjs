@@ -13,7 +13,7 @@ var terms_exports = /* @__PURE__ */ __exportAll({
 var $$Terms = createComponent(($$result, $$props, $$slots) => {
 	return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, {
 		"title": "Terms of Use | Souk Al-Mubarakiya",
-		"description": "Information and choices for this independent visitor guide.",
+		"description": "Scope of the independent market guide, changing visitor information, separate venue rules and photograph licences.",
 		"path": "/en/terms/",
 		"lang": "en",
 		"data-astro-cid-mdfhdvdf": true

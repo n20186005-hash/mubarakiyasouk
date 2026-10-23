@@ -13,7 +13,7 @@ var privacy_exports = /* @__PURE__ */ __exportAll({
 var $$Privacy = createComponent(($$result, $$props, $$slots) => {
 	return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, {
 		"title": "سياسة الخصوصية | Souk Al-Mubarakiya",
-		"description": "معلومات واختيارات هذا الدليل المستقل للزوار.",
+		"description": "استخدام هذا الدليل المستقل لتحليلات Google الاختيارية وقياسات Cloudflare والخرائط والتخزين المحلي.",
 		"path": "/privacy/",
 		"lang": "ar",
 		"data-astro-cid-u6ohjolg": true

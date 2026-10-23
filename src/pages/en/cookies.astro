@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Cookie Settings | Souk Al-Mubarakiya" description="Information and choices for this independent visitor guide." path="/en/cookies/" lang="en">
+<BaseLayout title="Cookie Settings | Souk Al-Mubarakiya" description="Enable or withdraw optional Google Analytics, check the effective saved choice and understand the separate hosting beacon." path="/en/cookies/" lang="en">
 <section class="legal section"><div class="wrap narrow cookie-wrap"><h1>Cookie Settings</h1><p class="updated">Updated: 23 October 2026</p><p class="lead">Control the existing Google Analytics option. This does not control the independent Cloudflare hosting beacon or the embedded Google Map.</p><form id="cookie-form" class="settings"><label><input id="analytics" type="checkbox" /> Allow Google Analytics</label><p>Choice storage is necessary to remember this setting. No optional interface preferences or advertising tools are currently provided.</p><div class="buttons"><button type="submit">Save choice</button><button id="reject" type="button" class="outline">Reject analytics</button></div><p id="save-status" role="status" aria-live="polite"></p></form><p><a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">Cloudflare: data origin and collection</a></p><p><a href="/en/">Visitor guide</a> · <a href="/en/privacy/">Privacy</a> · <a href="/en/cookies/">Cookie Settings</a></p></div></section>
 </BaseLayout>
 <script is:inline>
