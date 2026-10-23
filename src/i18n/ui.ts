@@ -23,9 +23,9 @@ export const ui = {
     'footer.privacy': 'سياسة الخصوصية',
     'footer.terms': 'شروط الاستخدام',
     'footer.cookies': 'إعدادات ملفات تعريف الارتباط',
-    'footer.note1': 'هذا الموقع مشروع مستقل غير ربحي لدليل معلومات الزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية.',
-    'footer.note2': 'تُراجع معلومات سوق المباركية بالرجوع إلى المواد العامة الصادرة عن بلدية الكويت، ووزارة الإعلام، والبوابة الإلكترونية الرسمية لدولة الكويت، ومطار الكويت الدولي، ومصادر أكاديمية من جامعة الكويت. لا يتضمن الموقع توصيات تجارية مدفوعة.',
-    'footer.note3': 'حقوق الصور: جميع الصور المعروضة تبقى حقوقها وحقوق نشرها للمصورين أو أصحاب التراخيص المبينة في سجل الصور داخل المشروع.',
+    'footer.note1': 'هذا الموقع مشروع مستقل لدليل معلومات الزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية.',
+    'footer.note2': 'السياق التاريخي: جامعة الكويت. قائمة السوق: خرائط Google، روجعت في 23 أكتوبر 2026. تحقق مباشرة من الخدمات المنفردة.',
+    'footer.note3': 'تظهر أسماء المصورين وروابط المصادر والتراخيص بجوار الصور.',
     'footer.copyright': '© 2026 دليل سوق المباركية في مدينة الكويت. جميع الحقوق محفوظة للمحتوى الأصلي للمشروع.'
   },
   en: {
@@ -43,9 +43,9 @@ export const ui = {
     'footer.privacy': 'Privacy Policy',
     'footer.terms': 'Terms of Use',
     'footer.cookies': 'Cookie Settings',
-    'footer.note1': 'This website is an independent, non-profit visitor information guide and is not affiliated with any government body or official organization.',
-    'footer.note2': 'Information about Souk Al-Mubarakiya is reviewed against public materials from the Kuwait Municipality, the Ministry of Information, the official portal of the State of Kuwait, Kuwait International Airport, and academic sources from Kuwait University. The site contains no paid commercial recommendations.',
-    'footer.note3': "Photo credits: all displayed photos remain the property of their photographers or license holders as stated in the project's photo credits file.",
+    'footer.note1': 'This website is an independent visitor information guide and is not affiliated with any government body or official organization.',
+    'footer.note2': 'Historical context: Kuwait University. Market listing: Google Maps, checked 23 October 2026. Confirm individual services directly.',
+    'footer.note3': "Photo credits and source/licence links appear beside each photograph.",
     'footer.copyright': '© 2026 Souk Al-Mubarakiya Guide in Kuwait City. All rights reserved for the original project content.'
   }
 } as const;

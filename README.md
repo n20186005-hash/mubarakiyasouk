@@ -1,28 +1,7 @@
-# دليل سوق المباركية
+# Souk Al-Mubarakiya visitor guide
 
-موقع عربي أحادي الصفحة للمعلومات غير الربحية عن سوق المباركية في مدينة الكويت، مبني باستخدام أسترو وتايلويند وتايب سكربت ومهيأ للنشر على عمال كلاودفلير.
+Independent Arabic and English guide. Astro with Cloudflare SSR, existing Open-Meteo weather and optional Google Analytics.
 
-## إعداد النطاق
+Install with `pnpm install --frozen-lockfile`, validate with `pnpm check`, build with `pnpm build`. `wrangler.jsonc` targets the existing `mubarakiyasouk` project.
 
-يوجد عنوان الموقع في موضع واحد فقط داخل `astro.config.mjs` في المتغير `SITE_URL`. اتركه فارغًا أثناء التطوير إذا لم يُحسم النطاق. عند بقائه فارغًا لا تُنشأ خريطة الموقع ولا تُكتب روابط أساسية أو روابط مشاركة مطلقة مزيفة. بعد شراء النطاق، ضع العنوان الكامل في هذا المتغير ثم أعد البناء.
-
-## أوامر التحقق
-
-```bash
-rm -rf node_modules
-CI=1 corepack pnpm install --frozen-lockfile
-pnpm check
-pnpm build
-```
-
-## ملفات الصور
-
-الصور الفوتوغرافية يجب أن تكون موجودة ماديًا في `public/images/`. يحفظ `PHOTO-CREDITS.md` مصدر كل صورة وترخيصها. لا تحذف سجل الحقوق عند نقل المشروع.
-
-## الخصوصية والقياس
-
-معرّف القياس مضمّن في التخطيط، لكن مكتبة القياس لا تُحمّل إلا إذا اختار الزائر السماح بالقياس من صفحة إعدادات ملفات تعريف الارتباط. التفضيل محفوظ محليًا في المتصفح.
-
-## مصادر التحرير
-
-يعتمد المحتوى على المقارنة بين البوابة الإلكترونية الرسمية لدولة الكويت، ووزارة الإعلام الكويتية، وجامعة الكويت، ومطار الكويت الدولي، وبلدية الكويت، إضافة إلى بيانات الموقع الجغرافية المعطاة للمشروع. لا يتضمن الدليل توصيات تجارية مدفوعة.
+Photo sources and licences: [PHOTO-CREDITS.md](PHOTO-CREDITS.md); linked credits are also visible beside the images.

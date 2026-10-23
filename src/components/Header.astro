@@ -5,8 +5,9 @@ import type { Lang } from '../i18n/ui';
 const { lang = defaultLang } = Astro.props;
 const path = Astro.url.pathname;
 const isEn = path.startsWith('/en');
-const arPath = isEn ? (path.slice(3) || '/') : path;
-const enPath = isEn ? path : (path === '/' ? '/en/' : '/en' + path);
+const errorPage = Astro.response.status === 404 || path.startsWith('/404');
+const arPath = errorPage ? '/' : isEn ? (path.slice(3) || '/') : path;
+const enPath = errorPage ? '/en/' : isEn ? path : (path === '/' ? '/en/' : '/en' + path);
 const prefix = lang === 'en' ? '/en' : '';
 const nav = [
   { key: 'nav.history', href: '#history' },

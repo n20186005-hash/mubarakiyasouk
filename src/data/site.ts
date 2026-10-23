@@ -11,13 +11,14 @@ export const ATTRACTION = {
   regionAr: 'محافظة العاصمة',
   country: 'State of Kuwait',
   countryAr: 'دولة الكويت',
-  // Coordinates of the souk (Gharabally Souq St, Plus Code 9XFF+G5).
-  latitude: 29.374588243816994,
-  longitude: 47.973118089148905,
+  // Place point for the market listing, not a map camera or a verified entrance.
+  latitude: 29.3738265,
+  longitude: 47.9729324,
   mapsShareUrl: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
   ratingValue: '4.4',
-  ratingCount: '26505',
-  openingHours: 'Mo-Su 08:00-22:00'
+  ratingCount: '26529',
+  listingChecked: '2026-10-23',
+  listingHoursNote: 'Google Maps lists 08:00–22:00 daily; individual vendors and holidays vary.'
 } as const;
 
 // SEO site name in the form "Attraction + City + Visitor Guide".

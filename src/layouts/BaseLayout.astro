@@ -49,23 +49,7 @@ const enHref = !noindex ? absolute(enPath) : undefined;
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Mubarakiya" />
   {jsonLd.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
-  <script is:inline>
-    (() => {
-      const GA_ID = 'G-HXM22WWPKP';
-      try {
-        const saved = JSON.parse(localStorage.getItem('mubarakiya-cookie-preferences') || '{}');
-        if (saved.analytics !== true) return;
-        window.dataLayer = window.dataLayer || [];
-        window.gtag = function(){ window.dataLayer.push(arguments); };
-        window.gtag('js', new Date());
-        window.gtag('config', GA_ID, { anonymize_ip: true });
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
-        document.head.appendChild(script);
-      } catch (_) {}
-    })();
-  </script>
+  <script is:inline src="/analytics.js"></script>
   <script is:inline>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

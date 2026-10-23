@@ -3,7 +3,7 @@
  * Static assets: cache-first, then network.
  * Cross-origin requests (Google Maps, gtag) pass through untouched.
  */
-const CACHE = 'mubarakiya-v1';
+const CACHE = 'mubarakiya-v2';
 const CORE = [
   '/',
   '/en/',
@@ -43,7 +43,7 @@ self.addEventListener('fetch', (event) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
+          if (res.ok) caches.open(CACHE).then((c) => c.put(req, copy));
           return res;
         })
         .catch(() => caches.match(req).then((r) => r || caches.match('/')))
@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
       return fetch(req).then((res) => {
         if (res && res.ok) {
           const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
+          if (res.ok) caches.open(CACHE).then((c) => c.put(req, copy));
         }
         return res;
       });

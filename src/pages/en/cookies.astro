@@ -1,40 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="Cookie Settings | Souk Al-Mubarakiya Guide" description="Manage cookie preferences and analytics for the Souk Al-Mubarakiya guide." path="/en/cookies/" lang="en">
-<section class="section"><div class="wrap cookie-wrap">
-  <p class="eyebrow">Clear control</p><h1>Cookie Settings</h1><p class="updated">Last updated: August 2026</p>
-  <p class="lead">We use the minimum storage required. You can choose analytics and preferences; we currently do not use personalised advertising cookies.</p>
-  <form id="cookie-form" class="settings" aria-describedby="save-status">
-    <article class="card"><div><h2>Necessary cookies</h2><p>Required to store your privacy choice and run the basic functions of the site. They cannot be disabled from this page.</p></div><label><input type="checkbox" checked disabled /> <span>Always active</span></label></article>
-    <article class="card"><div><h2>Analytics cookies</h2><p>Enable Google Analytics to collect aggregated usage information that helps us understand which pages are most useful. Analytics is not loaded before consent.</p></div><label><input id="analytics" type="checkbox" /> <span>Allow analytics</span></label></article>
-    <article class="card"><div><h2>Preference cookies</h2><p>Allow saving interface settings that we may add in the future, without building an advertising profile.</p></div><label><input id="preferences" type="checkbox" /> <span>Save preferences</span></label></article>
-    <article class="card muted"><div><h2>Marketing cookies</h2><p>This non-profit project currently does not run personalised ads or marketing tools that track visitor behaviour.</p></div><label><input type="checkbox" disabled /> <span>Off</span></label></article>
-    <div class="buttons"><button type="submit">Save preferences</button><button id="reject" type="button" class="outline">Reject non-essential</button></div>
-    <p id="save-status" class="status" role="status" aria-live="polite"></p>
-  </form>
-  <h2 class="consent">Managing consent</h2><p>You can return to this page at any time to change your choices. Disabling some future options may prevent interface preferences from being saved, but it does not block access to the core content.</p>
-</div></section>
+<BaseLayout title="Cookie Settings | Souk Al-Mubarakiya" description="Information and choices for this independent visitor guide." path="/en/cookies/" lang="en">
+<section class="legal section"><div class="wrap narrow cookie-wrap"><h1>Cookie Settings</h1><p class="updated">Updated: 23 October 2026</p><p class="lead">Control the existing Google Analytics option. This does not control the independent Cloudflare hosting beacon or the embedded Google Map.</p><form id="cookie-form" class="settings"><label><input id="analytics" type="checkbox" /> Allow Google Analytics</label><p>Choice storage is necessary to remember this setting. No optional interface preferences or advertising tools are currently provided.</p><div class="buttons"><button type="submit">Save choice</button><button id="reject" type="button" class="outline">Reject analytics</button></div><p id="save-status" role="status" aria-live="polite"></p></form><p><a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">Cloudflare: data origin and collection</a></p><p><a href="/en/">Visitor guide</a> · <a href="/en/privacy/">Privacy</a> · <a href="/en/cookies/">Cookie Settings</a></p></div></section>
 </BaseLayout>
 <script is:inline>
 (() => {
-  const key = 'mubarakiya-cookie-preferences';
-  const form = document.getElementById('cookie-form');
-  const analytics = document.getElementById('analytics');
-  const preferences = document.getElementById('preferences');
-  const reject = document.getElementById('reject');
-  const status = document.getElementById('save-status');
-  try {
-    const saved = JSON.parse(localStorage.getItem(key) || '{}');
-    analytics.checked = saved.analytics === true;
-    preferences.checked = saved.preferences === true;
-  } catch (_) {}
-  const save = (a, p) => {
-    localStorage.setItem(key, JSON.stringify({ necessary:true, analytics:a, preferences:p, marketing:false }));
-    status.textContent = 'Your choices have been saved. The analytics change will be applied in full when you open a new page or reload.';
-  };
-  form.addEventListener('submit', (event) => { event.preventDefault(); save(analytics.checked, preferences.checked); });
-  reject.addEventListener('click', () => { analytics.checked=false; preferences.checked=false; save(false,false); });
+ const form=document.getElementById('cookie-form'),box=document.getElementById('analytics'),reject=document.getElementById('reject'),status=document.getElementById('save-status'),api=window.mubarakiyaAnalytics;
+ box.checked=api.get();
+ const messages=["Saved. Google Analytics is on for this page.", "Saved. Google Analytics is off.", "Could not save permission. Google Analytics remains off on this page.", "Analytics is off on this page, but stored permission could not be cleared. Other pages or tabs may still use an old choice; check browser storage settings."];
+ const save=allow=>{const result=api.set(allow);box.checked=result.effective;status.textContent=result.saved?messages[result.effective?0:1]:messages[result.sharedOff?2:3];};
+ form.addEventListener('submit',event=>{event.preventDefault();save(box.checked);});
+ reject.addEventListener('click',()=>save(false));
+ window.addEventListener('storage',event=>{if(event.key==='mubarakiya-cookie-preferences'||event.key===null){box.checked=api.get();status.textContent='';}});
 })();
 </script>
 <style>.cookie-wrap{max-width:920px}.cookie-wrap h1{font-size:clamp(3rem,7vw,5.8rem);line-height:1;margin:.5rem 0}.updated{color:#7b6757}.settings{display:grid;gap:14px;margin-top:34px}.settings article{padding:24px;display:flex;justify-content:space-between;gap:25px;align-items:center}.settings article h2{font-size:1.2rem;margin:0}.settings article p{margin:.35rem 0 0;color:#675548}.settings label{min-width:150px;display:flex;gap:8px;align-items:center;font-weight:800}.settings input{width:20px;height:20px;accent-color:#714426}.muted{opacity:.72}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.buttons button{border:0;border-radius:999px;padding:.9rem 1.3rem;background:#3a2418;color:#fff;font:inherit;font-weight:800;cursor:pointer}.buttons .outline{background:transparent;color:#3a2418;border:1px solid rgba(58,36,24,.28)}.status{min-height:1.6em;color:#3f5f50;font-weight:700}.consent{margin-top:42px}@media(max-width:650px){.settings article{align-items:flex-start;flex-direction:column}.settings label{min-width:auto}}</style>

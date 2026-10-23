@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = false;
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WeatherSection from '../../components/WeatherSection.astro';
 import GuideSections from '../../components/GuideSections.astro';
@@ -15,22 +15,21 @@ const address = {
   streetAddress: 'Al-Mubarakiya, Gharabally Souq St',
   addressLocality: 'Kuwait City',
   addressRegion: 'Al-Asimah Governorate',
-  postalCode: '13000',
   addressCountry: 'KW'
 };
 const faq = [
-  ['Where is Souk Al-Mubarakiya located?','Souk Al-Mubarakiya is in the Al-Mubarakiya district of Kuwait City, on Gharabally Souq Street, in Al-Asimah Governorate, State of Kuwait. Nearest reference point: Plus Code 9XFF+G5.'],
-  ['Is there a map of Souk Al-Mubarakiya and what is the Plus Code?','Yes, the souk appears on Google Maps when you search “Souk Al-Mubarakiya, Gharabally Souq St” in Kuwait City. The Plus Code is 9XFF+G5, and you can open the direct map link from the “Directions on the map” button above to walk or take a short taxi to the edge of the souk.'],
-  ['Does Souk Al-Mubarakiya require an entrance ticket?','Entry to the general souk area is free and does not require a ticket. Purchases and some separate activities or services have their own costs.'],
+  ['Where is Souk Al-Mubarakiya located?','Souk Al-Mubarakiya is in the Al-Mubarakiya district of Kuwait City, on Gharabally Souq Street, in Al-Asimah Governorate, State of Kuwait. Nearest reference point: Map point 29.373827, 47.972932.'],
+  ['Is there a map of Souk Al-Mubarakiya and where should I navigate?','Yes, the souk appears on Google Maps when you search “Souk Al-Mubarakiya, Gharabally Souq St” in Kuwait City. The map point is 29.373827, 47.972932, and you can open the direct map link from the “Directions on the map” button above to walk or take a short taxi to the edge of the souk.'],
+  ['Does Souk Al-Mubarakiya require an entrance ticket?','This is a working market rather than a single ticketed attraction. Confirm any charge with the individual venue before using a service; purchases and meals are separate.'],
   ['What is the best time to visit Souk Al-Mubarakiya?','The atmosphere is usually pleasant in the milder months, and the late-afternoon and evening period suits those who enjoy the lively souk buzz. A morning visit is often best if you prefer relative calm.'],
   ['How long does a visit take?','Allow about an hour and a half to three hours to explore the lanes and specialist souks and enjoy a meal or drink. The duration is an estimate and varies with your interests.'],
   ['How do I get there from Kuwait International Airport?','Take a licensed taxi from the airport, or public transport lines heading toward the city center, then continue on foot or by a short taxi ride. Check official schedules before you leave, as they can change.'],
-  ['Are there parking facilities?','There are public and multi-storey parking facilities in central Kuwait City around the souk area. Pressure increases in the evenings and on holidays, so allow extra time to find a space.'],
-  ['What are the opening hours of Souk Al-Mubarakiya and when does it open?','Location data lists approximate daily hours of 08:00–22:00 (Monday to Sunday) for the general souk area. These are indicative and may vary by shop, season or event, so it is best to check local signage or official channels on arrival, especially during holidays and special occasions.'],
-  ['Are there famous restaurants and foods at Souk Al-Mubarakiya?','The souk is known for popular eateries, grills, rice dishes, seafood, sweets, dates and coffee. One historically well-known food spot in the area is Mubarakia Shabab Restaurant, but this guide deliberately describes types of food rather than commercial lists; check current reviews before visiting.'],
-  ['Are there toilets and visitor services?','Public services exist within the souk area and surrounding facilities, but opening hours and ease of access may vary. It is best to ask on-site when you arrive.'],
+  ['Are there parking facilities?','Locate a currently operating car park before setting out. Check its entry, prices and walking route to the market; this guide does not verify a particular facility.'],
+  ['What are the opening hours of Souk Al-Mubarakiya and when does it open?','The Google Maps listing checked on 23 October 2026 lists daily hours of 08:00–22:00 (Monday to Sunday) for the general souk area. These are indicative and may vary by shop, season or event, so it is best to check local signage or official channels on arrival, especially during holidays and special occasions.'],
+  ['Are there famous restaurants and foods at Souk Al-Mubarakiya?','The souk is known for popular eateries, grills, rice dishes, seafood, sweets, dates and coffee. This guide covers the market as a whole, not a particular restaurant. Check each vendor’s menu and current prices before ordering.'],
+  ['Are there toilets and visitor services?','Ask on arrival about the nearest open toilet and step-free route. This guide has not verified the operation, hours or accessibility of individual facilities.'],
   ['Is the souk suitable for wheelchair users?','Some lanes are wide and paved, while parts of the historic souk can be crowded or have uneven transitions. Prefer the wider entrances and avoid peak hours when you need easier movement.'],
-  ['What makes Souk Al-Mubarakiya historically significant?','The area is part of an old network of souks at the heart of Kuwait City, linked to the trade of food, perfumes, textiles, weapons, beshts (cloaks) and more. The year 1897 relates to Sheikh Mubarak\'s kiosk, not necessarily to the founding date of the whole souk.']
+  ['What makes Souk Al-Mubarakiya historically significant?','The area is part of an old network of souks at the heart of Kuwait City, linked to the trade of food, perfumes, textiles, weapons, beshts (cloaks) and more. Kuwait University describes a network of historic markets; dates for individual landmarks should not be treated as a founding date for the entire market.']
 ];
 
 const attractionSchema = {
@@ -42,24 +41,10 @@ const attractionSchema = {
   alternateName: ['Souk Al-Mubarakiya','Al-Mubarakiya Old Souk','Kuwait City Souk Al-Mubarakiya','سوق المباركية'],
   description: 'A comprehensive visitor guide to Souk Al-Mubarakiya in Kuwait City, Al-Asimah Governorate, State of Kuwait: history, location, visiting hours, transport, facilities and nearby landmarks.',
   image: [heroImage],
-  isAccessibleForFree: true,
   address,
-  geo: { '@type':'GeoCoordinates', latitude: 29.374588243816994, longitude: 47.973118089148905 },
+  geo: { '@type':'GeoCoordinates', latitude: 29.3738265, longitude: 47.9729324 },
   containedInPlace: { '@type':'City', name:'Kuwait City', containedInPlace:{ '@type':'Country', name:'State of Kuwait' } },
   hasMap: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
-  openingHours: 'Mo-Su 08:00-22:00',
-  openingHoursSpecification: {
-    '@type':'OpeningHoursSpecification',
-    dayOfWeek:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
-    opens:'08:00',
-    closes:'22:00'
-  },
-  aggregateRating: { '@type':'AggregateRating', ratingValue:'4.4', ratingCount:'26505', bestRating:'5' },
-  sameAs: [
-    'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
-    'https://www.visitkuwait.gov.kw/',
-    'https://www.wikidata.org/wiki/Q7565064'
-  ]
 };
 const webPageSchema = {
   '@context':'https://schema.org',
@@ -67,7 +52,7 @@ const webPageSchema = {
   ...(pageUrl ? { url: pageUrl } : {}),
   name:'Souk Al-Mubarakiya Visitor Guide in Kuwait City',
   inLanguage:'en',
-  dateModified:'2026-09-01',
+  dateModified:'2026-10-23',
   about:{ '@id': attractionId },
   mainEntity:{ '@id': attractionId },
   isPartOf:{ '@type':'WebSite', '@id':websiteId, ...(pageUrl ? { url:pageUrl } : {}), name:'Souk Al-Mubarakiya Guide' }
@@ -89,11 +74,11 @@ const photos = [
   }
 ];
 const mapsUrl = 'https://maps.app.goo.gl/Unad47yFEGSrn79r6';
-const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092.0451984373562!2d47.973118089148905!3d29.374588243816994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf84e895d75539%3A0xe2081f7936a852b0!2sSouk%20Al-Mubarakiya!5e1!3m2!1sen!2s!4v1788189123289!5m2!1sen!2s';
+const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output=embed';
 ---
 <BaseLayout
-  title={`${SITE_NAME} — opening hours, map, parking & food`}
-  description="Find when Souk Al-Mubarakiya opens in Kuwait City: location map, parking options, famous foods and nearby landmarks, plus live weather and practical visit tips."
+  title="Souk Al-Mubarakiya, Kuwait City | Hours, map & visit guide"
+  description="Plan a visit to Souk Al-Mubarakiya in Kuwait City: dated opening-hours guidance, location map, historic market lanes, food, weather and practical checks."
   path="/en/"
   image="/images/souk-al-mubarakiya-night.jpg"
   imageAlt="Souk Al-Mubarakiya in Kuwait City — the historic souk lanes at night"
@@ -108,15 +93,15 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
         <h1>Souk Al-Mubarakiya (Kuwait City)</h1>
         <p class="hero-lead">Shaded lanes, the scent of spices and coffee, wooden shopfronts, and specialist souks that preserve a picture of Kuwait&rsquo;s old commercial life.</p>
         <div class="facts" aria-label="Quick facts">
-          <span><b>08:00&ndash;22:00</b><small>Hours as provided in the site data</small></span>
-          <span><b>4.4 / 5</b><small>Maps rating, changes over time</small></span>
-          <span><b>9XFF+G5</b><small>Plus Code in Kuwait City</small></span>
+          <span><b>08:00&ndash;22:00</b><small>Google Maps listing · 23 Oct 2026; shops vary</small></span>
+          <span><b>4.4 / 5</b><small>Google Maps · 26,529 reviews · 23 Oct 2026</small></span>
+          <span><b>29.373827, 47.972932</b><small>Map point in Kuwait City</small></span>
         </div>
         <div class="actions"><a class="primary" href="#visit">Plan your visit</a><a class="secondary" href={mapsUrl} rel="noopener noreferrer">Directions on the map</a></div>
       </div>
       <figure class="arch hero-photo">
         <img src={photos[0].src} alt={photos[0].alt} width="960" height="656" loading="eager" fetchpriority="high" />
-        <figcaption>{photos[0].credit}</figcaption>
+        <figcaption>{photos[0].credit} · <a href="https://commons.wikimedia.org/wiki/File:Kuwait_City_Souq_al-Mubarakeya_at_Night_01.jpg">Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · 3 Dec 2022; resized and displayed with crop.</figcaption>
       </figure>
     </div>
   </section>
@@ -125,12 +110,12 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
     <div class="wrap identity-grid">
       <div><small>Name</small><strong>Souk Al-Mubarakiya</strong></div>
       <div><small>Location</small><strong>Al-Mubarakiya, Gharabally Souq St, Kuwait City</strong></div>
-      <div><small>Coordinates</small><strong dir="ltr">29.374588, 47.973118</strong></div>
+      <div><small>Coordinates</small><strong dir="ltr">29.373827, 47.972932</strong></div>
       <div><small>Nature</small><strong>Heritage souk and visitor destination</strong></div>
     </div>
   </section>
 
-  <WeatherSection server:defer lang="en">
+  <WeatherSection lang="en">
     <div class="wrap"><p class="eyebrow">Weather right now</p><h2 class="section-title">Weather at Souk Al-Mubarakiya</h2></div>
   </WeatherSection>
 
@@ -147,12 +132,11 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
         <h3>Location and visiting hours</h3>
         <dl>
           <dt>Address</dt><dd dir="ltr">Al-Mubarakiya, Gharabally Souq St, Kuwait City</dd>
-          <dt>Visiting hours</dt><dd>08:00 &ndash; 22:00</dd>
-          <dt>Plus Code</dt><dd dir="ltr">9XFF+G5</dd>
-          <dt>Rating</dt><dd dir="ltr">4.4 / 5 (26,505)</dd>
+          <dt>Visiting hours</dt><dd>08:00–22:00 · Google Maps, 23 Oct 2026; individual shops and holidays vary.</dd>
+          <dt>Map point</dt><dd dir="ltr">29.373827, 47.972932</dd>
+          <dt>Rating</dt><dd dir="ltr">4.4 / 5 (26,529)</dd>
         </dl>
         <a class="loc-link" href={mapsUrl} rel="noopener noreferrer">Directions on Google Maps ↗</a>
-        <a class="loc-link muted" href="https://www.visitkuwait.gov.kw/" rel="noopener noreferrer">Visit Kuwait &mdash; official tourism portal ↗</a>
       </aside>
     </div>
   </section>
@@ -165,14 +149,14 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
         <p class="lead">The souk is not a single building but an interwoven commercial memory &mdash; academic and official sources describe Al-Mubarakiya as part of the old heart of Kuwait and a network of specialist souks. Kuwait University states that the area&rsquo;s souks have roots stretching back more than 180 years, with more than twenty specialist markets known for different trades and goods.</p>
         <div class="timeline">
           <article><b>Before the oil era</b><p>Markets for meat, vegetables, sweets, beshts (cloaks), weapons, dried goods and more formed in the area, a daily exchange point between townspeople and traders.</p></article>
-          <article><b>1897</b><p>This year is linked to the kiosk of Sheikh Mubarak Al-Sabah, a historic landmark within Al-Mubarakiya. It should therefore not be used as a simplified founding date for the whole souk.</p></article>
-          <article><b>1911</b><p>Al-Mubarakiya School opened in the area, a sign of the city center&rsquo;s shift from trade alone toward education and organized public life.</p></article>
+          <article><b>Historic landmarks</b><p>Individual landmarks belong to the history of a wider market district; their dates do not date the whole souk.</p></article>
+          <article><b>The market district</b><p>Kuwait University links the area’s later name to the nearby Mubarakiya School.</p></article>
           <article><b>Around 1969&ndash;1970</b><p>The area underwent reorganization and development that preserved the character of the souks and their heritage lanes rather than converting them into a modern enclosed shopping center.</p></article>
           <article><b>2022 and after</b><p>A fire damaged part of the oldest historic zone, then the debate about protection and restoration renewed the importance of documenting buildings and urban identity.</p></article>
         </div>
       </div>
       <div>
-        <figure class="arch side-photo"><img src={photos[1].src} alt={photos[1].alt} loading="lazy" width="960" height="720" /><figcaption>{photos[1].credit}</figcaption></figure>
+        <figure class="arch side-photo"><img src={photos[1].src} alt={photos[1].alt} loading="lazy" width="960" height="720" /><figcaption>{photos[1].credit} · <a href="https://commons.wikimedia.org/wiki/File:Elmubarakiya-market-kuwait.jpg">Wikimedia Commons · 2008</a></figcaption></figure>
         <aside class="source-note card"><strong>How do we verify the account?</strong><p>We distinguish between the history of individual landmarks and the history of the souk network, and we compare governmental and academic sources instead of repeating popular dates without context.</p></aside>
       </div>
     </div>
@@ -194,7 +178,7 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
     <div class="wrap">
       <p class="eyebrow">A practical plan</p><h2 class="section-title">Before you go</h2>
       <div class="planning-grid">
-        <article class="card"><h3>Entry and costs</h3><p>Entry to the general souk area is free and needs no ticket. Pay only for the purchases, food or services you choose. Some landmarks or events may have separate rules.</p></article>
+        <article class="card"><h3>Entry and costs</h3><p>The market is a district of independent vendors. Ask about the price of any service before using it; meals, purchases and individual venues are separate.</p></article>
         <article class="card"><h3>Best time</h3><p>The milder months are more comfortable for walking. Evenings offer a livelier, lit atmosphere, while a morning visit usually allows a relatively quieter exploration.</p></article>
         <article class="card"><h3>Suggested duration</h3><p>Plan for about an hour and a half to three hours. Add time if you are interested in history, food, or walking to nearby public landmarks.</p></article>
         <article class="card"><h3>Clothing and conduct</h3><p>Choose comfortable, modest clothing and suitable walking shoes. Respect the privacy of vendors and visitors when taking photos, and ask permission when photographing people up close.</p></article>
@@ -205,10 +189,10 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
   <section id="transport" class="section sand">
     <div class="wrap">
       <p class="eyebrow">Getting there</p><h2 class="section-title">Location and how to reach Souk Al-Mubarakiya in Kuwait City</h2>
-      <p class="lead">By plane, bus, taxi or car &mdash; the souk lies in the Al-Mubarakiya district of central Kuwait City on Gharabally Souq Street, Plus Code 9XFF+G5.</p>
+      <p class="lead">By plane, bus, taxi or car &mdash; the souk lies in the Al-Mubarakiya district of central Kuwait City on Gharabally Souq Street, Map point 29.373827, 47.972932.</p>
       <div class="transport-grid">
-        <article><b>01</b><div><h3>From Kuwait International Airport</h3><p>The direct option is a licensed taxi from arrivals to central Kuwait City. The airport authority publishes an indicative fare for the journey to Kuwait City; check the posted price at the airport before boarding, as fares may change.</p></div></article>
-        <article><b>02</b><div><h3>Public buses</h3><p>The airport&rsquo;s official transport page lists public routes including 13, 99 and 501. Route 13 passes toward intermediate areas including Mirqab, from where you can continue on foot or by a short taxi ride. Check the schedule and route on the day of your visit.</p></div></article>
+        <article><b>01</b><div><h3>From Kuwait International Airport</h3><p>Ask the airport transport desk about current licensed taxi or bus options to central Kuwait City. Confirm the fare and destination before leaving; this guide does not publish a verified direct airport-to-market service.</p></div></article>
+        <article><b>02</b><div><h3>Public buses</h3><p>Check the transport operator’s current route and timetable for your starting point. Verify the stop and remaining walk before boarding; no route number here is guaranteed.</p></div></article>
         <article><b>03</b><div><h3>Taxis</h3><p>Use licensed taxis or well-known pick-up points, and ask for the meter or the prevailing regulated fare. Reaching the edge of the souk area is often easier than trying to enter the inner lanes.</p></div></article>
         <article><b>04</b><div><h3>By private car</h3><p>Aim for the public parking facilities in the central city area, then continue the short distance on foot. In the evening and on holidays, leave a time margin for finding a space and leaving the area.</p></div></article>
       </div>
@@ -217,7 +201,7 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
         <ul style="margin:0;color:#685647;display:grid;gap:8px;padding-inline-start:1.1rem">
           <li>Set your map destination to “Souk Al-Mubarakiya, Gharabally Souq St” to avoid confusion with other souks.</li>
           <li>From the airport: head first to central Kuwait City, then finish on foot or by a short taxi to the edge of the souk.</li>
-          <li>By bus: alight at the nearest central stop (such as Mirqab), then walk toward the souk.</li>
+          <li>By bus: confirm the appropriate stop and walking route with the operator before boarding.</li>
           <li>By taxi: ask to be dropped at the souk entrance, not inside the narrow lanes.</li>
           <li>Check official schedules and fares on the day of your visit; they can change.</li>
         </ul>
@@ -231,16 +215,16 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
       <p class="eyebrow">Visitor needs</p><h2 class="section-title">Services and facilities around the souk</h2>
       <p class="lead">We list only the types of services to keep the guide neutral and avoid turning it into an advertising page. Availability and hours may change, so check local signs on arrival.</p>
       <div class="facility-grid">
-        <article><i>🚻</i><h3>Restrooms</h3><p>Public services exist within the souk area and surrounding facilities; opening hours and accessibility may vary.</p></article>
-        <article><i>🅿️</i><h3>Parking</h3><p>Public and multi-storey parking around the central city area. Pressure is higher in the evening and on holidays.</p></article>
+        <article><i>🚻</i><h3>Restrooms</h3><p>Ask where the nearest open toilet is and whether its entrance is step-free. No individual facility is verified here.</p></article>
+        <article><i>🅿️</i><h3>Parking</h3><p>Check the selected car park’s entry, hours, charges and pedestrian route before relying on it.</p></article>
         <article><i>🍽️</i><h3>Food</h3><p>Popular restaurants, grills, rice dishes, seafood, bread, sweets and dates, plus coffee and tea shops.</p></article>
-        <article><i>🛏️</i><h3>Accommodation</h3><p>Hotels and serviced apartments of various grades in central Kuwait City; choose according to budget and proximity to transport routes.</p></article>
-        <article><i>🛒</i><h3>Daily goods</h3><p>Grocery stores, food markets, pharmacies and everyday services in the nearby urban area.</p></article>
-        <article><i>⛽</i><h3>Fuel and charging</h3><p>Fuel stations and electric charging points are distributed around the city; check the live map and compatibility before relying on a specific point.</p></article>
-        <article><i>💳</i><h3>Payment & ATMs</h3><p>ATMs and card payments are widespread around central Kuwait City; keep some cash for smaller vendors.</p></article>
-        <article><i>🕌</i><h3>Prayer spaces</h3><p>Public prayer rooms and mosques are found around central Kuwait City; respect prayer times when planning your walk.</p></article>
-        <article><i>➕</i><h3>Pharmacy & first aid</h3><p>Pharmacies and first-aid points sit close to the urban core; for emergencies, call the local unified number.</p></article>
-        <article><i>♿</i><h3>Accessibility</h3><p>Some lanes are paved and wide, while heritage parts get crowded; use the wider entrances and avoid peak hours.</p></article>
+        <article><i>🛏️</i><h3>Accommodation</h3><p>Choose accommodation using its own current information; verify the walk or transport connection you need.</p></article>
+        <article><i>🛒</i><h3>Daily goods</h3><p>Check opening hours directly if you need a particular shop or essential item.</p></article>
+        <article><i>⛽</i><h3>Fuel and charging</h3><p>Find a currently operating fuel or charging point before travelling. Check vehicle compatibility; none is verified by this guide.</p></article>
+        <article><i>💳</i><h3>Payment & ATMs</h3><p>Ask each vendor which payment methods they accept before ordering or buying. Do not rely on a particular ATM being available.</p></article>
+        <article><i>🕌</i><h3>Prayer spaces</h3><p>Check the individual mosque or prayer space’s access information and respect prayer times.</p></article>
+        <article><i>➕</i><h3>Pharmacy & first aid</h3><p>If a pharmacy or medical service is essential, identify a currently open provider in advance; this guide does not verify a first-aid point.</p></article>
+        <article><i>♿</i><h3>Accessibility</h3><p>Check a suitable entrance and route for your needs before travelling. Crowds, surfaces and steps can affect access.</p></article>
       </div>
     </div>
   </section>
@@ -257,9 +241,9 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
   <section class="section">
     <div class="wrap">
       <p class="eyebrow">In the near surroundings</p><h2 class="section-title">Landmarks and attractions around Souk Al-Mubarakiya</h2>
-      <p class="lead">Public landmarks that complete the reading of central Kuwait City and can be reached on foot from the souk area.</p>
+      <p class="lead">Possible additions around central Kuwait City. Check each venue’s own access rules and opening times; the market listing does not cover them.</p>
       <div class="nearby-grid">
-        <article class="card"><h3>Sheikh Mubarak Kiosk</h3><p>A historic landmark within Al-Mubarakiya linked to administration and public life in the era of Sheikh Mubarak Al-Sabah, and the best point for understanding why the souk carries his name.</p></article>
+        <article class="card"><h3>Sheikh Mubarak Kiosk</h3><p>A historic landmark within Al-Mubarakiya linked to administration and public life in the era of Sheikh Mubarak Al-Sabah, and a stop to consider separately from the wider market district.</p></article>
         <article class="card"><h3>The Grand Mosque</h3><p>A prominent religious and architectural landmark in central Kuwait City. Respect prayer times and entry and dress requirements when visiting.</p></article>
         <article class="card"><h3>Seif Palace and its surroundings</h3><p>An area of political and architectural importance on the old urban waterfront. Some parts are not an open tourist facility, so view it from permitted public places.</p></article>
         <article class="card"><h3>Kuwait National Museum and Sadu House</h3><p>Cultural institutions that help place the souk in the wider context of Kuwait&rsquo;s maritime, Bedouin and craft life. Check official opening hours in advance.</p></article>
@@ -274,16 +258,12 @@ const mapsEmbedSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3092
     </div>
   </section>
 
-  <section class="section sources">
+  <section class="section"><div class="wrap"><p>Independent visitor guide, not the market operator or a restaurant. Market location and listing snapshot checked 23 October 2026. Individual vendors, cultural venues and holiday schedules can differ. Confirm an essential service directly before travelling.</p></div></section>
+<section class="section sources">
     <div class="wrap source-grid">
-      <div><p class="eyebrow">Documentation method</p><h2 class="section-title">Public and academic sources, not advertising content</h2><p class="lead">To link the page to the real place, naming, coordinates and the map are reviewed against location data, and the historical account is compared with official Kuwaiti and academic sources.</p></div>
+      <div><p class="eyebrow">Documentation method</p><h2 class="section-title">Sources and last checked</h2><p class="lead">To link the page to the real place, naming, coordinates and the map are reviewed against location data, and the historical account is compared with official Kuwaiti and academic sources.</p></div>
       <div class="source-links">
-        <a href="https://www.visitkuwait.gov.kw/" rel="noopener noreferrer">Visit Kuwait &mdash; the official tourism portal of the State of Kuwait <span>↗</span></a>
-        <a href="https://e.gov.kw/sites/kgoArabic/Pages/Visitors/TourismInKuwait/ActivitiesInKuwaitShopping.aspx" rel="noopener noreferrer">Official portal: shopping in Kuwait mentioning Souk Al-Mubarakiya <span>↗</span></a>
-        <a href="https://news.gov.kw/News/MilafaatKhasa/Details/141446" rel="noopener noreferrer">Ministry of Information: a file on Souk Al-Mubarakiya and its historic souks <span>↗</span></a>
         <a href="https://www.ku.edu.kw/ar/media-center/news/kuw246554" rel="noopener noreferrer">Kuwait University: documenting the history of Al-Mubarakiya and its urban development <span>↗</span></a>
-        <a href="https://www.baladia.gov.kw/" rel="noopener noreferrer">Kuwait Municipality: the general municipal reference for services and urban regulation <span>↗</span></a>
-        <a href="https://www.kuwaitairport.gov.kw/ar/from-and-to-the-airport/transport/airport-taxies-and-buses/" rel="noopener noreferrer">Kuwait International Airport: airport taxis and buses <span>↗</span></a>
       </div>
     </div>
   </section>

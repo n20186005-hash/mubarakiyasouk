@@ -2,8 +2,8 @@
 // Data source: Open-Meteo forecast API (fetched and cached here, on the server).
 // No API key is required; the cache keeps load off the upstream service.
 
-const LAT = 29.374588243816994;
-const LON = 47.973118089148905;
+const LAT = 29.3738265;
+const LON = 47.9729324;
 const TTL_MS = 10 * 60 * 1000; // 10 minutes
 
 type Lang = 'ar' | 'en';
@@ -176,9 +176,9 @@ function buildAdvice(d: WeatherData): Advice {
 
   // --- Clear / cloudy fallback so the visit plan is never empty ---
   if (CLEAR.has(c.code)) {
-    add('plan', 'clear', { ar: 'طقس صافٍ ومناسب للتجول والتصوير الخارجي.', en: 'Clear and good for walking and outdoor photos.' });
+    add('plan', 'clear', { ar: 'سماء صافية؛ راجع الحرارة والرياح والأشعة فوق البنفسجية قبل تخطيط الجولة.', en: 'Clear sky; check heat, wind and UV before planning your walk.' });
   } else if (CLOUDY.has(c.code)) {
-    add('plan', 'cloudy', { ar: 'إضاءة ناعمة ومريحة — يوم مناسب للتجول الطويل والتصوير.', en: 'Soft, comfortable light — a good day for a long walk and photos.' });
+    add('plan', 'cloudy', { ar: 'سماء غائمة؛ لا يعني الغيم وحده أن الظروف مناسبة للمشي الطويل.', en: 'Cloudy sky; cloud cover alone does not establish comfortable conditions for a long walk.' });
   } else if (!risk && precip < 60 && c.temp < 33 && c.windLevel < 5) {
     add('plan', 'calm', { ar: 'أحوال مستقرة ومناسبة للتجول بهدوء.', en: 'Settled conditions — a relaxed time to wander.' });
   }
@@ -192,22 +192,24 @@ function buildAdvice(d: WeatherData): Advice {
 }
 
 export async function getWeather(lang: Lang = 'ar'): Promise<WeatherData> {
-  if (cache && Date.now() - cache.ts < TTL_MS) return cache.data;
+  if (cache && cache.data.lang === lang && Date.now() - cache.ts < TTL_MS) return cache.data;
 
   const url = new URL('https://api.open-meteo.com/v1/forecast');
   url.searchParams.set('latitude', String(LAT));
   url.searchParams.set('longitude', String(LON));
-  url.searchParams.set('current', 'temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m');
+  url.searchParams.set('current', 'temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m');
   url.searchParams.set('daily', 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max');
   url.searchParams.set('timezone', 'Asia/Kuwait');
   url.searchParams.set('forecast_days', '7');
   url.searchParams.set('wind_speed_unit', 'kmh');
 
-  const res = await fetch(url.toString(), { headers: { 'User-Agent': 'mubarakiyasouk-guide/1.0' } });
+  const res = await fetch(url.toString(), { signal: AbortSignal.timeout(4500), headers: { 'User-Agent': 'mubarakiyasouk-guide/1.0' } });
   if (!res.ok) throw new Error(`weather upstream ${res.status}`);
   const j = await res.json() as any;
 
   const cur = j.current;
+  const numeric = (v: unknown) => typeof v === 'number' && Number.isFinite(v);
+  if (!cur || !['temperature_2m','apparent_temperature','relative_humidity_2m','wind_speed_10m','weather_code'].every(k => numeric(cur[k])) || (typeof cur.time !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(cur.time)) || !j.daily || !Array.isArray(j.daily.time) || j.daily.time.length !== 7 || !j.daily.time.every((v: unknown) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) || !['weather_code','temperature_2m_max','temperature_2m_min','precipitation_probability_max','uv_index_max'].every(k => Array.isArray(j.daily[k]) && j.daily[k].length === 7 && j.daily[k].every(numeric))) throw new Error('Weather data unavailable');
   const curInfo = describe(cur.weather_code, lang);
   const days: Day[] = (j.daily.time as string[]).map((date: string, i: number) => {
     const code = j.daily.weather_code[i] as number;
@@ -233,7 +235,7 @@ export async function getWeather(lang: Lang = 'ar'): Promise<WeatherData> {
       humidity: Math.round(cur.relative_humidity_2m),
       windKmh: Math.round(cur.wind_speed_10m),
       windLevel: beaufort(cur.wind_speed_10m),
-      precipProb: Math.round(cur.precipitation_probability ?? 0),
+      precipProb: days[0].precip,
       code: cur.weather_code,
       icon: curInfo.icon,
       descAr: curInfo.ar,

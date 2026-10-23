@@ -23,7 +23,7 @@ const seasons = [
     climate: ar ? 'يعود إلى الاعتدال والتهوية المنعشة' : 'Returns to mild, fresh air',
     crowd: ar ? 'يتزايد تدريجيًا' : 'Gradually increasing',
     time: ar ? 'نهارًا ومساءً' : 'Day and evening',
-    tip: ar ? 'فصل انتقال مريح يجمع between الهدوء والطقس اللطيف.' : 'A comfortable transition blending calm crowds with gentle weather.' }
+    tip: ar ? 'فصل انتقال مريح يجمع بين الهدوء والطقس اللطيف.' : 'A comfortable transition blending calm crowds with gentle weather.' }
 ];
 
 const personas = [
@@ -32,7 +32,7 @@ const personas = [
     items: ar ? ['ابدأوا من المدخل الأوسع لتجنّب الزحام','رتّبوا فاصلاً للطعام في منطقة الجلوس','تجنّبوا ساعات الذروة ظهرًا','احملوا ماءً كافيًا لكل الأعمار'] : ['Start at the wider entrance to avoid crowds','Plan a seating break for a meal','Skip the midday peak','Carry enough water for all ages'] },
   { tag: ar ? 'المصورون والطبيعة' : 'Photographers & details',
     lead: ar ? 'إضاءة ناعمة وخشب وظلال تتغير مع الساعة.' : 'Soft light, woodwork and shifting shade through the hours.',
-    items: ar ? ['الساعة الذهبية بعد العصر تعطي ألوانًا دافئة','التقطوا الواجهات الخشبية والممرات المقببة',' respectsوا خصوصية الباعة عند تصوير الأشخاص','جرّبوا ليل السوق للأجواء المضيئة'] : ['Golden hour after afternoon gives warm tones','Capture wooden facades and arched lanes','Respect vendors’ privacy when photographing people','Try the souk at night for the lit atmosphere'] },
+    items: ar ? ['الساعة الذهبية بعد العصر تعطي ألوانًا دافئة','التقطوا الواجهات الخشبية والممرات المقببة','احترموا خصوصية الباعة عند تصوير الأشخاص','جرّبوا ليل السوق للأجواء المضيئة'] : ['Golden hour after afternoon gives warm tones','Capture wooden facades and arched lanes','Respect vendors’ privacy when photographing people','Try the souk at night for the lit atmosphere'] },
   { tag: ar ? 'حركة مخفّفة / بلا عوائق' : 'Low-effort / accessible',
     lead: ar ? 'مسارات مسطحة وقصيرة مع راحة متكررة.' : 'Flat, short routes with frequent rest points.',
     items: ar ? ['اختاروا المداخل الواسعة والممرات الممهدة','وزّعوا المسافة على فترات قصيرة','استريحوا في الأماكن المظللة','راجعوا المرافق العامة عند الوصول'] : ['Use wide entrances and paved lanes','Split the walk into short stretches','Rest in shaded spots','Check public facilities on arrival'] }
@@ -55,7 +55,7 @@ const science = [
   { h: ar ? 'سلامة الحرارة والصحة' : 'Heat & health awareness',
     p: ar ? 'في أشهر الحرارة، ابدأوا مع انخفاض الحرارة، واشربوا الماء بانتظام، وابحثوا عن الظل. الأعراف المحلية تحترم أوقات الصلاة والسكينة.' : 'In the hot months, start when it cools, drink water often, and use the shade. Local norms respect prayer times and calm.' },
   { h: ar ? 'دعم محلي بلا تحيز تجاري' : 'Local support, no commercial bias',
-    p: ar ? 'يدعم الدليل المعرفة بأنواع الخدمات لا بأسماء متاجر محددة، حفاظًا على حياده كمشروع غير ربحي.' : 'The guide supports knowledge by types of service, not by naming specific shops, keeping it neutral as a non-profit project.' },
+    p: ar ? 'يدعم الدليل المعرفة بأنواع الخدمات لا بأسماء متاجر محددة، حفاظًا على حياده كمشروع مستقل.' : 'The guide supports knowledge by types of service, not by naming specific shops, keeping it neutral as a independent project.' },
   { h: ar ? 'صفر نفايات واحترام المكان' : 'Zero waste & respect',
     p: ar ? 'خذوا نفاياتكم معكم، ولا تلمسوا المعروضات التراثية أو مقتنيات المتاجر دون إذن. الزيارة المسؤولة تحمي المكان للأجيال القادمة.' : 'Take your litter with you and do not handle heritage displays or goods without permission. Responsible visits protect the place for the next generations.' }
 ];
@@ -128,7 +128,7 @@ const science = [
   <div class="wrap">
     <p class="eyebrow">{ar ? 'معرفة ومسؤولية' : 'Knowledge & responsibility' }</p>
     <h2 class="section-title">{ar ? 'الوعي العلمي ومسؤولية الزائر' : 'Science awareness & visitor responsibility'}</h2>
-    <p class="lead">{ar ? 'بصفته مشروعًا غير ربحي، يقدّم الدليل سياقًا يساعد على فهم المكان واحترامه.' : 'As a non-profit project, the guide offers context that helps you understand and respect the place.' }</p>
+    <p class="lead">{ar ? 'بصفته مشروعًا مستقل، يقدّم الدليل سياقًا يساعد على فهم المكان واحترامه.' : 'As a independent project, the guide offers context that helps you understand and respect the place.' }</p>
     <div class="science-grid">
       {science.map((s) => (
         <article class="card sc-card">

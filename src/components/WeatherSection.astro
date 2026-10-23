@@ -28,7 +28,7 @@ const t = (ar: string, en: string) => (lang === 'ar' ? ar : en);
     <div class="wrap">
       <p class="eyebrow">{t('الطقس الآن', 'Weather right now')}</p>
       <h2 class="section-title">{t('الطقس في سوق المباركية', 'Weather at Souk Al-Mubarakiya')}</h2>
-      <p class="lead">{t('ظروف اللحظة والتوقعات للأيام القادمة، لتخطط لزيارتك بثقة.', 'Live conditions and the coming days, so you can plan your visit with confidence.')}</p>
+      <p class="lead">{t('توقعات Open-Meteo قرب السوق، وليست قياسًا داخل الممرات. وقت البيانات بتوقيت الكويت: ', 'Open-Meteo forecast near the market, not a measurement inside its lanes. Data time in Kuwait: ')}<time>{w.current.observedAt}</time></p>
 
       <div class="wx-grid">
         <div class="wx-now card">
@@ -43,7 +43,7 @@ const t = (ar: string, en: string) => (lang === 'ar' ? ar : en);
             <div><dt>{t('الإحساس', 'Feels like')}</dt><dd>{w.current.feels}°</dd></div>
             <div><dt>{t('الرطوبة', 'Humidity')}</dt><dd>{w.current.humidity}%</dd></div>
             <div><dt>{t('الرياح', 'Wind')}</dt><dd>{t(`الدرجة ${w.current.windLevel}`, `level ${w.current.windLevel}`)} · {w.current.windKmh} km/h</dd></div>
-            <div><dt>{t('احتمال المطر', 'Rain chance')}</dt><dd>{w.current.precipProb}%</dd></div>
+            <div><dt>{t('احتمال المطر اليوم', 'Today’s rain chance')}</dt><dd>{w.current.precipProb}%</dd></div>
             <div><dt>{t('الأشعة فوق البنفسجية', 'UV index')}</dt><dd>{w.current.uv}</dd></div>
           </dl>
         </div>
