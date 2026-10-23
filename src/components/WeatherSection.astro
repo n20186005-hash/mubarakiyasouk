@@ -28,23 +28,23 @@ const t = (ar: string, en: string) => (lang === 'ar' ? ar : en);
     <div class="wrap">
       <p class="eyebrow">{t('الطقس الآن', 'Weather right now')}</p>
       <h2 class="section-title">{t('الطقس في سوق المباركية', 'Weather at Souk Al-Mubarakiya')}</h2>
-      <p class="lead">{t('توقعات Open-Meteo قرب السوق، وليست قياسًا داخل الممرات. وقت البيانات بتوقيت الكويت: ', 'Open-Meteo forecast near the market, not a measurement inside its lanes. Data time in Kuwait: ')}<time>{w.current.observedAt}</time></p>
+      <p class="lead">{t('توقعات Open-Meteo قرب السوق، وليست قياسًا داخل الممرات. وقت البيانات بتوقيت الكويت: ', 'Open-Meteo forecast near the market, not a measurement inside its lanes. Data time in Kuwait: ')}<time dir="ltr">{w.current.observedAt}</time></p>
 
       <div class="wx-grid">
         <div class="wx-now card">
           <div class="wx-now-top">
             <span class="wx-icon">{w.current.icon}</span>
             <div>
-              <div class="wx-temp">{w.current.temp}°</div>
+              <div class="wx-temp"><bdi dir="ltr">{w.current.temp}°</bdi></div>
               <div class="wx-desc">{lang === 'ar' ? w.current.descAr : w.current.descEn}</div>
             </div>
           </div>
           <dl class="wx-stats">
-            <div><dt>{t('الإحساس', 'Feels like')}</dt><dd>{w.current.feels}°</dd></div>
-            <div><dt>{t('الرطوبة', 'Humidity')}</dt><dd>{w.current.humidity}%</dd></div>
-            <div><dt>{t('الرياح', 'Wind')}</dt><dd>{t(`الدرجة ${w.current.windLevel}`, `level ${w.current.windLevel}`)} · {w.current.windKmh} km/h</dd></div>
-            <div><dt>{t('احتمال المطر اليوم', 'Today’s rain chance')}</dt><dd>{w.current.precipProb}%</dd></div>
-            <div><dt>{t('الأشعة فوق البنفسجية', 'UV index')}</dt><dd>{w.current.uv}</dd></div>
+            <div><dt>{t('الإحساس', 'Feels like')}</dt><dd><bdi dir="ltr">{w.current.feels}°</bdi></dd></div>
+            <div><dt>{t('الرطوبة', 'Humidity')}</dt><dd><bdi dir="ltr">{w.current.humidity}%</bdi></dd></div>
+            <div><dt>{t('الرياح', 'Wind')}</dt><dd>{t(`الدرجة ${w.current.windLevel}`, `level ${w.current.windLevel}`)} · <bdi dir="ltr">{w.current.windKmh} km/h</bdi></dd></div>
+            <div><dt>{t('احتمال المطر اليوم', 'Today’s rain chance')}</dt><dd><bdi dir="ltr">{w.current.precipProb}%</bdi></dd></div>
+            <div><dt>{t('الأشعة فوق البنفسجية', 'UV index')}</dt><dd><bdi dir="ltr">{w.current.uv}</bdi></dd></div>
           </dl>
         </div>
 
@@ -58,8 +58,8 @@ const t = (ar: string, en: string) => (lang === 'ar' ? ar : en);
                   <span class="wx-d-name">{f.name}</span>
                   <span class="wx-d-icon">{d.icon}</span>
                   <span class="wx-d-desc">{lang === 'ar' ? d.descAr : d.descEn}</span>
-                  <span class="wx-d-temp"><b>{d.tmax}°</b> / {d.tmin}°</span>
-                  <span class="wx-d-precip">{d.precip}%</span>
+                  <span class="wx-d-temp"><bdi dir="ltr"><b>{d.tmax}°</b> / {d.tmin}°</bdi></span>
+                  <span class="wx-d-precip"><bdi dir="ltr">{d.precip}%</bdi></span>
                 </li>
               );
             })}

@@ -1,6 +1,6 @@
 globalThis.process ??= {};
 globalThis.process.env ??= {};
-import { a as DefaultFetchHandler, i as App, o as manifest } from "./chunks/entrypoints_Bioh82q1.mjs";
+import { a as DefaultFetchHandler, i as App, o as manifest } from "./chunks/entrypoints_DqHMvNKm.mjs";
 import "./chunks/image-binding-transform_DFLtH-n2.mjs";
 import "cloudflare:workers";
 //#region \0virtual:astro-cloudflare:config

@@ -4,7 +4,7 @@ import { t as __exportAll } from "./rolldown-runtime_D7vh-g_o.mjs";
 import { A as addAttribute, D as renderTemplate, O as maybeRenderHead, R as createAstro, S as renderComponent } from "./sequence_RIOL4Z-o.mjs";
 import { t as createComponent } from "./compiler_C0lOyPMK.mjs";
 import { t as $$BaseLayout } from "./BaseLayout_uBK9qlOS.mjs";
-import { i as $$WeatherSection, r as $$GuideSections, t as SITE_NAME } from "./site_B9nzGmoW.mjs";
+import { i as $$WeatherSection, r as $$GuideSections, t as SITE_NAME } from "./site_CEmR44_S.mjs";
 //#region src/pages/en/index.astro
 var en_exports = /* @__PURE__ */ __exportAll({
 	default: () => $$Index,
