@@ -3,7 +3,8 @@ export const prerender = false;
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import WeatherSection from '../../components/WeatherSection.astro';
 import GuideSections from '../../components/GuideSections.astro';
-import { SITE_NAME } from '../../data/site';
+import GuideTopicGrid from '../../components/GuideTopicGrid.astro';
+import { ATTRACTION, SITE_NAME } from '../../data/site';
 
 const site = Astro.site?.toString().replace(/\/$/, '');
 const pageUrl = site ? `${site}/en/` : undefined;
@@ -25,7 +26,7 @@ const faq = [
   ['How long does a visit take?','Allow about an hour and a half to three hours to explore the lanes and specialist souks and enjoy a meal or drink. The duration is an estimate and varies with your interests.'],
   ['How do I get there from Kuwait International Airport?','Take a licensed taxi from the airport, or public transport lines heading toward the city center, then continue on foot or by a short taxi ride. Check official schedules before you leave, as they can change.'],
   ['Are there parking facilities?','Locate a currently operating car park before setting out. Check its entry, prices and walking route to the market; this guide does not verify a particular facility.'],
-  ['What are the opening hours of Souk Al-Mubarakiya and when does it open?','The Google Maps listing checked on 23 October 2026 lists daily hours of 08:00–22:00 (Monday to Sunday) for the general souk area. These are indicative and may vary by shop, season or event, so it is best to check local signage or official channels on arrival, especially during holidays and special occasions.'],
+  ['What are the opening hours of Souk Al-Mubarakiya and when does it open?','The Google Maps listing checked on 2 November 2026 lists daily hours of 08:00–22:00 (Monday to Sunday) for the general souk area. These are indicative and may vary by shop, season or event, so it is best to check local signage or official channels on arrival, especially during holidays and special occasions.'],
   ['Are there famous restaurants and foods at Souk Al-Mubarakiya?','The souk is known for popular eateries, grills, rice dishes, seafood, sweets, dates and coffee. This guide covers the market as a whole, not a particular restaurant. Check each vendor’s menu and current prices before ordering.'],
   ['Are there toilets and visitor services?','Ask on arrival about the nearest open toilet and step-free route. This guide has not verified the operation, hours or accessibility of individual facilities.'],
   ['Is the souk suitable for wheelchair users?','Some lanes are wide and paved, while parts of the historic souk can be crowded or have uneven transitions. Prefer the wider entrances and avoid peak hours when you need easier movement.'],
@@ -43,6 +44,11 @@ const attractionSchema = {
   image: [heroImage],
   address,
   geo: { '@type':'GeoCoordinates', latitude: 29.3738265, longitude: 47.9729324 },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: ATTRACTION.ratingValue,
+    ratingCount: ATTRACTION.ratingCount
+  },
   containedInPlace: { '@type':'City', name:'Kuwait City', containedInPlace:{ '@type':'Country', name:'State of Kuwait' } },
   hasMap: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
 };
@@ -52,7 +58,7 @@ const webPageSchema = {
   ...(pageUrl ? { url: pageUrl } : {}),
   name:'Souk Al-Mubarakiya Visitor Guide in Kuwait City',
   inLanguage:'en',
-  dateModified:'2026-10-23',
+  dateModified:'2026-11-02',
   about:{ '@id': attractionId },
   mainEntity:{ '@id': attractionId },
   isPartOf:{ '@type':'WebSite', '@id':websiteId, ...(pageUrl ? { url:pageUrl } : {}), name:'Souk Al-Mubarakiya Guide' }
@@ -93,8 +99,8 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
         <h1>Souk Al-Mubarakiya (Kuwait City)</h1>
         <p class="hero-lead">Shaded lanes, the scent of spices and coffee, wooden shopfronts, and specialist souks that preserve a picture of Kuwait&rsquo;s old commercial life.</p>
         <div class="facts" aria-label="Quick facts">
-          <span><b>08:00&ndash;22:00</b><small>Google Maps listing · 23 Oct 2026; shops vary</small></span>
-          <span><b>4.4 / 5</b><small>Google Maps · 26,529 reviews · 23 Oct 2026</small></span>
+          <span><b>08:00&ndash;22:00</b><small>Google Maps listing · 2 Nov 2026; shops vary</small></span>
+          <span><b>4.4 / 5</b><small>Google Maps · 26,534 reviews · 2 Nov 2026</small></span>
           <span><b>29.373827, 47.972932</b><small>Map point in Kuwait City</small></span>
         </div>
         <div class="actions"><a class="primary" href="#visit">Plan your visit</a><a class="secondary" href={mapsUrl} rel="noopener noreferrer">Directions on the map</a></div>
@@ -132,9 +138,9 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
         <h3>Location and visiting hours</h3>
         <dl>
           <dt>Address</dt><dd dir="ltr">Al-Mubarakiya, Gharabally Souq St, Kuwait City</dd>
-          <dt>Visiting hours</dt><dd>08:00–22:00 · Google Maps, 23 Oct 2026; individual shops and holidays vary.</dd>
+          <dt>Visiting hours</dt><dd>08:00–22:00 · Google Maps, 2 Nov 2026; individual shops and holidays vary.</dd>
           <dt>Map point</dt><dd dir="ltr">29.373827, 47.972932</dd>
-          <dt>Rating</dt><dd dir="ltr">4.4 / 5 (26,529)</dd>
+          <dt>Rating</dt><dd dir="ltr">4.4 / 5 (26,534)</dd>
         </dl>
         <a class="loc-link" href={mapsUrl} rel="noopener noreferrer">Directions on Google Maps ↗</a>
       </aside>
@@ -237,6 +243,7 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
   </section>
 
   <GuideSections lang="en" />
+  <GuideTopicGrid lang="en" />
 
   <section class="section">
     <div class="wrap">
@@ -258,7 +265,7 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
     </div>
   </section>
 
-  <section class="section"><div class="wrap"><p>Independent visitor guide, not the market operator or a restaurant. Market location and listing snapshot checked 23 October 2026. Individual vendors, cultural venues and holiday schedules can differ. Confirm an essential service directly before travelling.</p></div></section>
+  <section class="section"><div class="wrap"><p>Independent visitor guide, not the market operator or a restaurant. Market location and listing snapshot checked 2 November 2026. Individual vendors, cultural venues and holiday schedules can differ. Confirm an essential service directly before travelling.</p></div></section>
 <section class="section sources">
     <div class="wrap source-grid">
       <div><p class="eyebrow">Documentation method</p><h2 class="section-title">Sources and last checked</h2><p class="lead">To link the page to the real place, naming, coordinates and the map are reviewed against location data, and the historical account is compared with official Kuwaiti and academic sources.</p></div>

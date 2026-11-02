@@ -1,0 +1,47 @@
+---
+import { GUIDE_PAGES, getGuideHref, localize } from '../data/guidePages';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'ar' } = Astro.props;
+const featured = GUIDE_PAGES;
+const isEn = lang === 'en';
+const totalPages = featured.length;
+---
+<section class="section topic-grid-section">
+  <div class="wrap">
+    <p class="eyebrow">{isEn ? 'Expanded pages' : 'الصفحات المتخصصة'}</p>
+    <h2 class="section-title">{isEn ? `Browse the full ${totalPages}-page guide system` : `تصفّح شبكة الأدلة الكاملة المكوّنة من ${totalPages} صفحة`}</h2>
+    <p class="lead">
+      {isEn
+        ? 'These focused pages expand the site from a homepage into a full guide library covering timing, access, heritage, shopping, food, nearby landmarks and route planning.'
+        : 'هذه الصفحات المتخصصة توسّع الموقع من صفحة رئيسية واحدة إلى مكتبة أدلة كاملة تغطي التوقيت والوصول والتاريخ والتسوق والطعام والمعالم القريبة وخطط المسارات.'}
+    </p>
+    <div class="topic-grid">
+      {featured.map((guide) => (
+        <a class="card topic-card" href={getGuideHref(guide.slug, lang)}>
+          <small>{localize(guide.category, lang)}</small>
+          <strong>{localize(guide.title, lang)}</strong>
+          <p>{localize(guide.description, lang)}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+  .topic-card { display: block; text-decoration: none; padding: 22px; }
+  .topic-card small { display: block; color: #806d5c; margin-bottom: 5px; }
+  .topic-card strong { display: block; color: #3a2418; font-size: 1.08rem; margin-bottom: 8px; }
+  .topic-card p { margin: 0; color: #685647; font-size: .94rem; }
+  @media (max-width: 900px) {
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .topic-grid { grid-template-columns: 1fr; }
+  }
+</style>

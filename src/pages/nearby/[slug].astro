@@ -1,0 +1,16 @@
+---
+import GuideTopicPage from '../../components/GuideTopicPage.astro';
+import { GUIDE_PAGES } from '../../data/guidePages';
+
+export function getStaticPaths() {
+  return GUIDE_PAGES
+    .filter((guide) => guide.slug.startsWith('nearby/'))
+    .map((guide) => ({
+      params: { slug: guide.slug.split('/')[1] },
+      props: { guide }
+    }));
+}
+
+const { guide } = Astro.props;
+---
+<GuideTopicPage guide={guide} lang="ar" />

@@ -16,8 +16,8 @@ export const ATTRACTION = {
   longitude: 47.9729324,
   mapsShareUrl: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
   ratingValue: '4.4',
-  ratingCount: '26529',
-  listingChecked: '2026-10-23',
+  ratingCount: '26534',
+  listingChecked: '2026-11-02',
   listingHoursNote: 'Google Maps lists 08:00–22:00 daily; individual vendors and holidays vary.'
 } as const;
 

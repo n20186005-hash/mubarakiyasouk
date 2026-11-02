@@ -24,7 +24,7 @@ export const ui = {
     'footer.terms': 'شروط الاستخدام',
     'footer.cookies': 'إعدادات ملفات تعريف الارتباط',
     'footer.note1': 'هذا الموقع مشروع مستقل لدليل معلومات الزوار، ولا يتبع أي جهة حكومية أو منظمة رسمية.',
-    'footer.note2': 'السياق التاريخي: جامعة الكويت. قائمة السوق: خرائط Google، روجعت في 23 أكتوبر 2026. تحقق مباشرة من الخدمات المنفردة.',
+    'footer.note2': 'السياق التاريخي: جامعة الكويت. قائمة السوق: خرائط Google، روجعت في 2 نوفمبر 2026. تحقق مباشرة من الخدمات المنفردة.',
     'footer.note3': 'تظهر أسماء المصورين وروابط المصادر والتراخيص بجوار الصور.',
     'footer.copyright': '© 2026 دليل سوق المباركية في مدينة الكويت. جميع الحقوق محفوظة للمحتوى الأصلي للمشروع.'
   },
@@ -44,7 +44,7 @@ export const ui = {
     'footer.terms': 'Terms of Use',
     'footer.cookies': 'Cookie Settings',
     'footer.note1': 'This website is an independent visitor information guide and is not affiliated with any government body or official organization.',
-    'footer.note2': 'Historical context: Kuwait University. Market listing: Google Maps, checked 23 October 2026. Confirm individual services directly.',
+    'footer.note2': 'Historical context: Kuwait University. Market listing: Google Maps, checked 2 November 2026. Confirm individual services directly.',
     'footer.note3': "Photo credits and source/licence links appear beside each photograph.",
     'footer.copyright': '© 2026 Souk Al-Mubarakiya Guide in Kuwait City. All rights reserved for the original project content.'
   }

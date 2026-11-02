@@ -3,7 +3,8 @@ export const prerender = false;
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WeatherSection from '../components/WeatherSection.astro';
 import GuideSections from '../components/GuideSections.astro';
-import { SITE_NAME, SITE_NAME_AR } from '../data/site';
+import GuideTopicGrid from '../components/GuideTopicGrid.astro';
+import { ATTRACTION, SITE_NAME, SITE_NAME_AR } from '../data/site';
 
 const site = Astro.site?.toString().replace(/\/$/, '');
 const pageUrl = site ? `${site}/` : undefined;
@@ -27,7 +28,7 @@ const faq = [
   ['كم تستغرق الزيارة؟','يمكن تخصيص نحو ساعة ونصف إلى ثلاث ساعات لاستكشاف الممرات والأسواق المتخصصة وتناول وجبة أو مشروب. المدة تقديرية وتختلف حسب الاهتمامات.'],
   ['كيف أصل من مطار الكويت الدولي؟','يمكن استخدام سيارة أجرة مرخصة من المطار، أو خطوط النقل العام المتجهة نحو مركز المدينة ثم متابعة الطريق سيرًا أو بسيارة أجرة قصيرة. راجع الجداول الرسمية قبل الانطلاق لأنها قابلة للتغيير.'],
   ['هل توجد مواقف سيارات؟','حدد موقفًا يعمل حاليًا قبل الانطلاق، وتحقق من المدخل والأسعار ومسار المشي إلى السوق؛ لا يوثق هذا الدليل مرفقًا بعينه.'],
-  ['ما هي ساعات عمل سوق المباركية ومتى يفتح؟','تعرض قائمة خرائط Google التي روجعت في 23 أكتوبر 2026 ساعات 08:00–22:00 يوميًا (من الاثنين إلى الأحد) لمنطقة السوق العامة. هذه الساعات إرشادية وقد تختلف بحسب المحل أو الموسم أو المناسبة، لذلك يُستحسن مراجعة اللافتات المحلية أو القنوات الرسمية عند الوصول، خصوصًا في الأعياد والمناسبات.'],
+  ['ما هي ساعات عمل سوق المباركية ومتى يفتح؟','تعرض قائمة خرائط Google التي روجعت في 2 نوفمبر 2026 ساعات 08:00–22:00 يوميًا (من الاثنين إلى الأحد) لمنطقة السوق العامة. هذه الساعات إرشادية وقد تختلف بحسب المحل أو الموسم أو المناسبة، لذلك يُستحسن مراجعة اللافتات المحلية أو القنوات الرسمية عند الوصول، خصوصًا في الأعياد والمناسبات.'],
   ['هل توجد مطاعم وأكلات مشهورة في سوق المباركية؟','يُعرف السوق بأجواء الأكل الشعبي: المشويات وأطباق الأرز والمأكولات البحرية والحلويات والتمور والقهوة. هذا دليل للسوق كله، وليس لمطعم بعينه. راجع قائمة الطعام والأسعار الحالية لدى البائع قبل الطلب.'],
   ['هل توجد دورات مياه وخدمات للزوار؟','اسأل عند الوصول عن أقرب دورة مياه مفتوحة ومسار خالٍ من الدرج. لم يتحقق هذا الدليل من تشغيل المرافق المنفردة أو ساعاتها أو إمكانية الوصول إليها.'],
   ['هل السوق مناسب لمستخدمي الكراسي المتحركة؟','بعض الممرات واسعة وممهدة، بينما قد تكون أجزاء السوق التاريخية مزدحمة أو ذات انتقالات غير متساوية. من الأفضل اختيار المداخل الأوسع وتجنب ساعات الذروة عند الحاجة إلى حركة أسهل.'],
@@ -40,11 +41,16 @@ const attractionSchema = {
   '@id': attractionId,
   ...(pageUrl ? { url: pageUrl } : {}),
   name: 'سوق المباركية',
-  alternateName: ['Souk Al-Mubarakiya','Al-Mubarakiya Old Souk','Kuwait City Souk Al-Mubarakiya','مطعم شباب المباركية'],
+  alternateName: ['Souk Al-Mubarakiya','Al-Mubarakiya Old Souk','Kuwait City Souk Al-Mubarakiya','سوق المباركية'],
   description: 'دليل زوار شامل لسوق المباركية في مدينة الكويت، محافظة العاصمة، دولة الكويت: التاريخ، الموقع، أوقات الزيارة، المواصلات، المرافق والمعالم القريبة.',
   image: [heroImage],
   address,
   geo: { '@type':'GeoCoordinates', latitude: 29.3738265, longitude: 47.9729324 },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: ATTRACTION.ratingValue,
+    ratingCount: ATTRACTION.ratingCount
+  },
   containedInPlace: { '@type':'City', name:'مدينة الكويت', containedInPlace:{ '@type':'Country', name:'دولة الكويت' } },
   hasMap: 'https://maps.app.goo.gl/Unad47yFEGSrn79r6',
 };
@@ -54,7 +60,7 @@ const webPageSchema = {
   ...(pageUrl ? { url: pageUrl } : {}),
   name:'دليل سوق المباركية في مدينة الكويت',
   inLanguage:'ar-KW',
-  dateModified:'2026-10-23',
+  dateModified:'2026-11-02',
   about:{ '@id': attractionId },
   mainEntity:{ '@id': attractionId },
   isPartOf:{ '@type':'WebSite', '@id':websiteId, ...(pageUrl ? { url:pageUrl } : {}), name:'دليل سوق المباركية' }
@@ -95,8 +101,8 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
         <h1>سوق المباركية (مدينة الكويت)</h1>
         <p class="hero-lead">ممرات مظللة، رائحة البهارات والقهوة، واجهات خشبية، وأسواق متخصصة تحفظ صورة من الحياة التجارية القديمة في الكويت.</p>
         <div class="facts" aria-label="معلومات سريعة">
-          <span><b><bdi dir="ltr">08:00–22:00</bdi></b><small>خرائط Google · 23 أكتوبر 2026؛ تختلف المحلات</small></span>
-          <span><b><bdi dir="ltr">4.4 / 5</bdi></b><small>خرائط Google: 26,529 مراجعة · 23 أكتوبر 2026</small></span>
+          <span><b><bdi dir="ltr">08:00–22:00</bdi></b><small>خرائط Google · 2 نوفمبر 2026؛ تختلف المحلات</small></span>
+          <span><b><bdi dir="ltr">4.4 / 5</bdi></b><small>خرائط Google: 26,534 مراجعة · 2 نوفمبر 2026</small></span>
           <span><b><bdi dir="ltr">29.373827, 47.972932</bdi></b><small>نقطة الخريطة في مدينة الكويت</small></span>
         </div>
         <div class="actions"><a class="primary" href="#visit">خطط زيارتك</a><a class="secondary" href={mapsUrl} rel="noopener noreferrer">الاتجاهات على الخريطة</a></div>
@@ -134,9 +140,9 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
         <h3>الموقع وساعات الزيارة</h3>
         <dl>
           <dt>العنوان</dt><dd dir="ltr">Al-Mubarakiya, Gharabally Souq St, Kuwait City</dd>
-          <dt>ساعات الزيارة</dt><dd><bdi dir="ltr">08:00–22:00</bdi> · خرائط Google، 23 أكتوبر 2026؛ تختلف المحلات والعطلات.</dd>
+          <dt>ساعات الزيارة</dt><dd><bdi dir="ltr">08:00–22:00</bdi> · خرائط Google، 2 نوفمبر 2026؛ تختلف المحلات والعطلات.</dd>
           <dt>نقطة الخريطة</dt><dd dir="ltr">29.373827, 47.972932</dd>
-          <dt>التقييم</dt><dd dir="ltr">4.4 / 5 (26,529)</dd>
+          <dt>التقييم</dt><dd dir="ltr">4.4 / 5 (26,534)</dd>
         </dl>
         <a class="loc-link" href={mapsUrl} rel="noopener noreferrer">الاتجاهات على خرائط غوغل ↗</a>
       </aside>
@@ -239,6 +245,7 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
   </section>
 
   <GuideSections lang="ar" />
+  <GuideTopicGrid lang="ar" />
 
   <section class="section">
     <div class="wrap">
@@ -260,7 +267,7 @@ const mapsEmbedSrc = 'https://www.google.com/maps?q=29.3738265,47.9729324&output
     </div>
   </section>
 
-  <section class="section"><div class="wrap"><p>دليل مستقل للزوار، وليس إدارة السوق أو مطعمًا. روجع موقع السوق ولقطة القائمة في 23 أكتوبر 2026. قد تختلف ساعات الباعة والمعالم والعطلات؛ تأكد مباشرة من الخدمة المهمة قبل السفر.</p></div></section>
+  <section class="section"><div class="wrap"><p>دليل مستقل للزوار، وليس إدارة السوق أو مطعمًا. روجع موقع السوق ولقطة القائمة في 2 نوفمبر 2026. قد تختلف ساعات الباعة والمعالم والعطلات؛ تأكد مباشرة من الخدمة المهمة قبل السفر.</p></div></section>
 <section class="section sources">
     <div class="wrap source-grid">
       <div><p class="eyebrow">منهج التوثيق</p><h2 class="section-title">مصادر عامة وأكاديمية، لا محتوى دعائي</h2><p class="lead">لربط الصفحة بالمكان الحقيقي، تُراجع التسمية والإحداثيات والخريطة مع بيانات الموقع، وتُقارن الرواية التاريخية بمصادر كويتية رسمية وأكاديمية.</p></div>

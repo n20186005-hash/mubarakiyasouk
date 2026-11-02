@@ -1,0 +1,295 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ATTRACTION, SITE_NAME, SITE_NAME_AR } from '../data/site';
+import { getGuideHref, getGuidePage, localize } from '../data/guidePages';
+import { getGuideDetail, localizeDetail } from '../data/guidePageDetails';
+import { getGuideFacts, getGuideFaqs, localizeSeoText } from '../data/guidePageSeo';
+import type { GuidePage } from '../data/guidePages';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  guide: GuidePage;
+  lang: Lang;
+}
+
+const { guide, lang } = Astro.props;
+const isEn = lang === 'en';
+const pagePath = getGuideHref(guide.slug, lang);
+const site = Astro.site?.toString().replace(/\/$/, '');
+const pageUrl = site ? `${site}${pagePath}` : undefined;
+const pageTitle = localize(guide.seoTitle, lang);
+const pageDescription = localize(guide.description, lang);
+const detail = getGuideDetail(guide.slug);
+const facts = getGuideFacts(guide.slug);
+const faqs = getGuideFaqs(guide.slug);
+const relatedGuides = guide.related.map((slug) => getGuidePage(slug)).filter(Boolean) as GuidePage[];
+const homeLabel = isEn ? 'Home' : 'الرئيسية';
+const relatedLabel = isEn ? 'Related guides' : 'أدلة مرتبطة';
+const overviewLabel = isEn ? 'What this page covers' : 'ما الذي تغطيه هذه الصفحة؟';
+const verifyLabel = isEn ? 'What you should still verify' : 'ما الذي يحتاج تحققًا مباشرًا؟';
+const guideLabel = isEn ? 'Topic guide' : 'دليل موضوعي';
+const checklistLabel = isEn ? 'Practical checklist' : 'قائمة عملية';
+const factsLabel = isEn ? 'Key facts' : 'حقائق سريعة';
+const contentsLabel = isEn ? 'Page guide' : 'دليل الصفحة';
+const faqLabel = isEn ? 'Common questions' : 'أسئلة شائعة';
+const heroImage = '/images/souk-al-mubarakiya-night.jpg';
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: homeLabel, item: site ? `${site}${isEn ? '/en/' : '/'}` : undefined },
+    { '@type': 'ListItem', position: 2, name: localize(guide.title, lang), item: pageUrl }
+  ]
+};
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  ...(pageUrl ? { url: pageUrl } : {}),
+  name: localize(guide.title, lang),
+  description: pageDescription,
+  inLanguage: isEn ? 'en' : 'ar-KW',
+  isPartOf: {
+    '@type': 'WebSite',
+    ...(site ? { url: site } : {}),
+    name: isEn ? SITE_NAME : SITE_NAME_AR
+  },
+  about: {
+    '@type': 'TouristAttraction',
+    name: isEn ? ATTRACTION.fullName : ATTRACTION.fullNameAr,
+    ...(site ? { url: `${site}/` } : {})
+  }
+};
+const faqSchema = faqs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((item) => ({
+        '@type': 'Question',
+        name: localizeSeoText(item.question, lang),
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: localizeSeoText(item.answer, lang)
+        }
+      }))
+    }
+  : undefined;
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={pagePath}
+  image={heroImage}
+  imageAlt={isEn ? 'Souk Al-Mubarakiya at night in Kuwait City' : 'سوق المباركية ليلًا في مدينة الكويت'}
+  lang={lang}
+  siteName={isEn ? SITE_NAME : SITE_NAME_AR}
+  jsonLd={[breadcrumbSchema, webPageSchema, ...(faqSchema ? [faqSchema] : [])]}
+>
+  <section class="topic-hero geometric">
+    <div class="wrap topic-hero-grid">
+      <div class="topic-copy">
+        <p class="eyebrow">{localize(guide.category, lang)} · {guideLabel}</p>
+        <h1>{localize(guide.title, lang)}</h1>
+        <p class="hero-lead">{localize(guide.hero, lang)}</p>
+        <div class="topic-highlights" aria-label={overviewLabel}>
+          {guide.highlights.map((item) => (
+            <div class="card highlight">
+              <small>{localize(item.label, lang)}</small>
+              <strong>{localize(item.value, lang)}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+      <aside class="card topic-aside">
+        <p class="aside-label">{overviewLabel}</p>
+        <p>{localize(guide.intro, lang)}</p>
+        <a class="map-link" href={ATTRACTION.mapsShareUrl} rel="noopener noreferrer">
+          {isEn ? 'Open the market map' : 'افتح خريطة السوق'}
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="topic-facts">
+    <div class="wrap">
+      <p class="eyebrow">{factsLabel}</p>
+      <div class="facts-grid">
+        {facts.map((fact) => (
+          <article class="card fact-card">
+            <small>{localizeSeoText(fact.label, lang)}</small>
+            <strong>{localizeSeoText(fact.value, lang)}</strong>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section topic-contents">
+    <div class="wrap">
+      <p class="eyebrow">{contentsLabel}</p>
+      <div class="contents-grid">
+        {guide.sections.map((section, index) => (
+          <a class="card contents-card" href={`#section-${index + 1}`}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{localize(section.title, lang)}</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap topic-sections">
+      {guide.sections.map((section, index) => (
+        <article class="card section-card" id={`section-${index + 1}`}>
+          <div class="section-index">{String(index + 1).padStart(2, '0')}</div>
+          <div class="section-copy">
+            <h2>{localize(section.title, lang)}</h2>
+            <p>{localize(section.body, lang)}</p>
+            {section.bullets && (
+              <ul>
+                {section.bullets.map((bullet) => <li>{localize(bullet, lang)}</li>)}
+              </ul>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap faq-wrap">
+      <div>
+        <p class="eyebrow">{faqLabel}</p>
+        <h2 class="section-title">{isEn ? 'Short answers before you go' : 'إجابات سريعة قبل الزيارة'}</h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((item, index) => (
+          <details class="card faq-card" id={`faq-${index + 1}`}>
+            <summary>{localizeSeoText(item.question, lang)}</summary>
+            <p>{localizeSeoText(item.answer, lang)}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap insight-grid">
+      <article class="card insight-card">
+        <p class="eyebrow">{localizeDetail(detail.audienceTitle, lang)}</p>
+        <p>{localizeDetail(detail.audienceBody, lang)}</p>
+      </article>
+      <article class="card insight-card">
+        <p class="eyebrow">{localizeDetail(detail.pairingTitle, lang)}</p>
+        <p>{localizeDetail(detail.pairingBody, lang)}</p>
+      </article>
+      <article class="card insight-card">
+        <p class="eyebrow">{localizeDetail(detail.sourceTitle, lang)}</p>
+        <p>{localizeDetail(detail.sourceBody, lang)}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">{checklistLabel}</p>
+      <h2 class="section-title">{localizeDetail(detail.checklistTitle, lang)}</h2>
+      <div class="checklist-grid">
+        {detail.checklist.map((item, index) => (
+          <article class="card checklist-card">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <p>{localizeDetail(item, lang)}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section sand">
+    <div class="wrap verify-grid">
+      <div>
+        <p class="eyebrow">{verifyLabel}</p>
+        <h2 class="section-title">{isEn ? 'Before you rely on this plan' : 'قبل أن تعتمد على هذه الخطة'}</h2>
+      </div>
+      <div class="card verify-card">
+        <p>{localize(guide.verify, lang)}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">{relatedLabel}</p>
+      <h2 class="section-title">{isEn ? 'Continue with the next useful page' : 'تابع إلى الصفحة التالية الأنسب'}</h2>
+      <div class="related-grid">
+        {relatedGuides.map((item) => (
+          <a class="card related-card" href={getGuideHref(item.slug, lang)}>
+            <small>{localize(item.category, lang)}</small>
+            <strong>{localize(item.title, lang)}</strong>
+            <p>{localize(item.description, lang)}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .topic-hero { padding: 72px 0 60px; border-bottom: 1px solid var(--line); }
+  .topic-hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: start; }
+  .topic-copy h1 { font-size: clamp(2.6rem, 6vw, 5rem); line-height: .98; margin: .35rem 0 1rem; color: #3a2418; }
+  .hero-lead { font-size: 1.14rem; color: #5d4b3d; max-width: 760px; }
+  .topic-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+  .highlight { padding: 18px 20px; }
+  .highlight small { display: block; color: #806d5c; font-size: .74rem; margin-bottom: 4px; }
+  .highlight strong { color: #3a2418; font-size: 1rem; }
+  .topic-aside { padding: 24px; border-radius: 28px; position: sticky; top: 100px; }
+  .aside-label { font-size: .78rem; font-weight: 800; color: #714426; text-transform: uppercase; letter-spacing: .04em; }
+  .topic-aside p { margin: .4rem 0 0; color: #685647; }
+  .map-link { display: inline-block; margin-top: 18px; text-decoration: none; background: #3a2418; color: #fff; padding: .78rem 1rem; border-radius: 999px; font-weight: 800; }
+  .topic-facts { padding: 22px 0 0; }
+  .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .fact-card { padding: 18px 20px; }
+  .fact-card small { display: block; color: #806d5c; margin-bottom: 4px; }
+  .fact-card strong { color: #3a2418; font-size: 1rem; }
+  .topic-contents { padding-top: 34px; }
+  .contents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+  .contents-card { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; text-decoration: none; padding: 18px 20px; }
+  .contents-card span { color: #c79b55; font-weight: 900; }
+  .contents-card strong { color: #3a2418; }
+  .topic-sections { display: grid; gap: 16px; }
+  .section-card { display: grid; grid-template-columns: 74px 1fr; gap: 18px; padding: 24px; }
+  .section-index { color: #c79b55; font-size: 1.2rem; font-weight: 900; }
+  .section-copy h2 { margin: 0 0 .7rem; color: #3a2418; font-size: 1.55rem; }
+  .section-copy p { margin: 0; color: #685647; }
+  .section-copy ul { margin: 14px 0 0; padding-inline-start: 1.2rem; color: #5d4b3d; display: grid; gap: 8px; }
+  .faq-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; }
+  .faq-list { display: grid; gap: 12px; }
+  .faq-card { padding: 0 20px; }
+  .faq-card summary { cursor: pointer; font-weight: 800; padding: 18px 0; color: #3a2418; }
+  .faq-card p { margin: 0 0 18px; color: #685647; }
+  .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .insight-card { padding: 24px; }
+  .insight-card p:last-child { margin: .4rem 0 0; color: #685647; }
+  .checklist-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .checklist-card { padding: 22px; display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; }
+  .checklist-card span { color: #c79b55; font-size: 1.05rem; font-weight: 900; }
+  .checklist-card p { margin: 0; color: #5d4b3d; }
+  .verify-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: center; }
+  .verify-card { padding: 24px; }
+  .verify-card p { margin: 0; color: #5d4b3d; font-size: 1.02rem; }
+  .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .related-card { display: block; text-decoration: none; padding: 22px; }
+  .related-card small { display: block; color: #806d5c; margin-bottom: 4px; }
+  .related-card strong { display: block; color: #3a2418; font-size: 1.08rem; margin-bottom: 8px; }
+  .related-card p { margin: 0; color: #685647; font-size: .94rem; }
+  @media (max-width: 900px) {
+    .topic-hero-grid, .verify-grid, .related-grid, .topic-highlights, .insight-grid, .checklist-grid, .facts-grid, .contents-grid, .faq-wrap { grid-template-columns: 1fr; }
+    .topic-aside { position: relative; top: auto; }
+  }
+  @media (max-width: 620px) {
+    .section-card { grid-template-columns: 1fr; }
+    .contents-card { grid-template-columns: 1fr; }
+    .checklist-card { grid-template-columns: 1fr; }
+  }
+</style>
